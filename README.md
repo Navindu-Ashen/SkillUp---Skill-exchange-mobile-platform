@@ -68,6 +68,3 @@ Ensure you have the following installed:
 
 ## License
 This project is **licensed under MIT**. See the [LICENSE](LICENSE) file for details.
-
-
-# SkillUp---Skill-exchange-mobile-platform
