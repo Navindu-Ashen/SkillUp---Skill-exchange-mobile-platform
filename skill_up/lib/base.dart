@@ -27,10 +27,10 @@ class _BaseState extends State<Base> {
         inactiveColor: Colors.grey[400],
         selectedIndex: activeIndex,
         barItems: [
-          BarItem(icon: Icons.home, title: 'Home'),
+          BarItem(icon: Icons.home_outlined, title: 'Home'),
           BarItem(icon: Icons.work_outline, title: 'Jobs'),
           BarItem(icon: Icons.book_outlined, title: 'Learning'),
-          BarItem(icon: Icons.person, title: 'Profile'),
+          BarItem(icon: Icons.person_outline, title: 'Profile'),
         ],
       ),
     );

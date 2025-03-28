@@ -1,5 +1,4 @@
 // ignore_for_file: deprecated_member_use
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:skill_up/screens/home/detailed_feature_skills.dart';
@@ -22,21 +21,21 @@ class FeaturedSkillsSection extends StatelessWidget {
         'image': 'assets/UI-UX.png',
         'category': 'Design',
         'learners': 4257,
-        'color': const Color.fromARGB(255, 254, 230, 255),
+        'color': const Color.fromARGB(255, 231, 241, 255),
       },
       {
         'title': 'Machine Learning',
         'image': 'assets/ml.png',
         'category': 'Data Science',
         'learners': 3126,
-        'color': const Color.fromARGB(255, 231, 249, 236),
+        'color': const Color.fromARGB(255, 231, 241, 255),
       },
       {
         'title': 'Digital Marketing',
         'image': 'assets/digital-marketing.png',
         'category': 'Marketing',
         'learners': 6754,
-        'color': const Color.fromARGB(255, 255, 243, 233),
+        'color': const Color.fromARGB(255, 231, 241, 255),
       },
     ];
 
@@ -170,7 +169,7 @@ class FeaturedSkillsSection extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder:
-                              (context) => SkillDetailPage(
+                              (context) => DetailedFeatureSkills(
                                 skillName: title,
                                 skillCategory: category,
                                 skillImage: image,

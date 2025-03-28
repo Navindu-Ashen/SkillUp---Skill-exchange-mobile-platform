@@ -116,7 +116,7 @@ class _SearchPageState extends State<SearchPage> {
                           child:
                               user != null
                                   ? FadeInImage.assetNetwork(
-                                    placeholder: 'assets/icon_bg_F.jpg',
+                                    placeholder: 'assets/Sample_User_Icon.png',
                                     image: user.profilePictureURL,
                                     fit: BoxFit.cover,
                                     imageErrorBuilder: (
@@ -133,7 +133,7 @@ class _SearchPageState extends State<SearchPage> {
                                     fadeInCurve: Curves.easeIn,
                                   )
                                   : Image.asset(
-                                    'assets/icon_bg_F.jpg',
+                                    'assets/Sample_User_Icon.png',
                                     fit: BoxFit.cover,
                                   ),
                         ),
@@ -146,7 +146,7 @@ class _SearchPageState extends State<SearchPage> {
 
             // Filter and sort options
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 6),
               color: Colors.white,
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
@@ -256,6 +256,7 @@ class _SearchPageState extends State<SearchPage> {
     return GestureDetector(
       onTap: () => _toggleFilter(label),
       child: Container(
+        height: 40,
         margin: const EdgeInsets.only(right: 8),
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
         decoration: BoxDecoration(
@@ -263,7 +264,7 @@ class _SearchPageState extends State<SearchPage> {
               isActive
                   ? const Color.fromARGB(255, 52, 76, 183)
                   : const Color.fromARGB(255, 240, 240, 240),
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(10),
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,

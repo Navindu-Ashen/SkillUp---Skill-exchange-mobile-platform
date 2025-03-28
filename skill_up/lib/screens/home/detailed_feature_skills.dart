@@ -2,14 +2,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class SkillDetailPage extends StatefulWidget {
+class DetailedFeatureSkills extends StatefulWidget {
   final String skillName;
   final String skillCategory;
   final String skillImage;
   final int learners;
   final Color cardColor;
 
-  const SkillDetailPage({
+  const DetailedFeatureSkills({
     super.key,
     required this.skillName,
     required this.skillCategory,
@@ -19,10 +19,10 @@ class SkillDetailPage extends StatefulWidget {
   });
 
   @override
-  State<SkillDetailPage> createState() => _SkillDetailPageState();
+  State<DetailedFeatureSkills> createState() => _DetailedFeatureSkillsState();
 }
 
-class _SkillDetailPageState extends State<SkillDetailPage>
+class _DetailedFeatureSkillsState extends State<DetailedFeatureSkills>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   bool _isBookmarked = false;

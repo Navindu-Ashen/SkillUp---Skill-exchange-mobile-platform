@@ -1,5 +1,8 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:skill_up/model/post.dart';
@@ -120,9 +123,12 @@ class _AddPostPageState extends State<AddPostPage> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        title: const Text(
+        title: Text(
           'New Post',
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          style: GoogleFonts.spaceGrotesk(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         leading: IconButton(
           icon: const Icon(Icons.close, color: Colors.black),
@@ -145,10 +151,10 @@ class _AddPostPageState extends State<AddPostPage> {
                 onPressed: _selectedImages.isNotEmpty ? _createPost : null,
                 child: Text(
                   'Share',
-                  style: TextStyle(
+                  style: GoogleFonts.spaceGrotesk(
                     color:
                         _selectedImages.isNotEmpty
-                            ? const Color.fromARGB(255, 146, 227, 169)
+                            ? const Color.fromARGB(255, 52, 76, 183)
                             : Colors.grey,
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
@@ -178,19 +184,19 @@ class _AddPostPageState extends State<AddPostPage> {
                           ),
                         ),
                         const SizedBox(width: 12),
-                        const Column(
+                        Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               'Kavya Sarameweera',
-                              style: TextStyle(
+                              style: GoogleFonts.spaceGrotesk(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16,
                               ),
                             ),
                             Text(
                               'Software Engineer',
-                              style: TextStyle(
+                              style: GoogleFonts.spaceGrotesk(
                                 color: Colors.grey,
                                 fontSize: 14,
                               ),
@@ -284,9 +290,9 @@ class _AddPostPageState extends State<AddPostPage> {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color.fromARGB(
                             255,
-                            146,
-                            227,
-                            169,
+                            52,
+                            76,
+                            183,
                           ),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20),
@@ -296,9 +302,13 @@ class _AddPostPageState extends State<AddPostPage> {
                             vertical: 12,
                           ),
                         ),
-                        child: const Text(
+                        child: Text(
                           'Select from Gallery',
-                          style: TextStyle(fontSize: 16, color: Colors.black),
+                          style: GoogleFonts.spaceGrotesk(
+                            fontSize: 16,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ],
