@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:skill_up/model/podcast.dart';
-import 'package:skill_up/screens/podcasts/podcast_detailed_page.dart';
+import 'package:skill_up/screens/learning/learning_detailed_page.dart';
 
-class PodcastCard extends StatelessWidget {
+class LearnCard extends StatelessWidget {
   final PodcastModel podcast;
 
-  const PodcastCard({super.key, required this.podcast});
+  const LearnCard({super.key, required this.podcast});
 
   @override
   Widget build(BuildContext context) {
@@ -15,12 +15,12 @@ class PodcastCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => PodcastDetailsPage(podcastId: podcast.id),
+            builder: (context) => LearningDetailsPage(podcastId: podcast.id),
           ),
         );
       },
       child: Card(
-        color: const Color.fromARGB(255, 146, 227, 169),
+        color: const Color.fromARGB(255, 170, 198, 238),
         margin: const EdgeInsets.only(bottom: 16),
         elevation: 2,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -54,7 +54,7 @@ class PodcastCard extends StatelessWidget {
                 children: [
                   Text(
                     podcast.title,
-                    style: GoogleFonts.chakraPetch(
+                    style: GoogleFonts.spaceGrotesk(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
@@ -65,7 +65,7 @@ class PodcastCard extends StatelessWidget {
                   const SizedBox(height: 4),
                   Text(
                     "Hosted by ${podcast.host}",
-                    style: GoogleFonts.chakraPetch(
+                    style: GoogleFonts.spaceGrotesk(
                       fontSize: 14,
                       color: Colors.black,
                     ),
@@ -77,7 +77,7 @@ class PodcastCard extends StatelessWidget {
                       const SizedBox(width: 4),
                       Text(
                         podcast.rating,
-                        style: GoogleFonts.chakraPetch(color: Colors.black),
+                        style: GoogleFonts.spaceGrotesk(color: Colors.black),
                       ),
                       const SizedBox(width: 12),
                       const Icon(
@@ -88,12 +88,12 @@ class PodcastCard extends StatelessWidget {
                       const SizedBox(width: 4),
                       Text(
                         podcast.listenCount,
-                        style: GoogleFonts.chakraPetch(color: Colors.black),
+                        style: GoogleFonts.spaceGrotesk(color: Colors.black),
                       ),
                       const Spacer(),
                       Text(
                         podcast.duration,
-                        style: GoogleFonts.chakraPetch(color: Colors.black),
+                        style: GoogleFonts.spaceGrotesk(color: Colors.black),
                       ),
                     ],
                   ),

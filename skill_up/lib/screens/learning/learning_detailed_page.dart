@@ -4,16 +4,16 @@ import 'package:skill_up/data/podcasts.dart';
 import 'package:skill_up/model/podcast.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-class PodcastDetailsPage extends StatefulWidget {
+class LearningDetailsPage extends StatefulWidget {
   final String podcastId;
 
-  const PodcastDetailsPage({super.key, required this.podcastId});
+  const LearningDetailsPage({super.key, required this.podcastId});
 
   @override
-  State<PodcastDetailsPage> createState() => _PodcastDetailsPageState();
+  State<LearningDetailsPage> createState() => _LearningDetailsPageState();
 }
 
-class _PodcastDetailsPageState extends State<PodcastDetailsPage> {
+class _LearningDetailsPageState extends State<LearningDetailsPage> {
   late YoutubePlayerController _controller;
   late PodcastModel podcast;
   bool _isPlayerReady = false;
@@ -55,7 +55,7 @@ class _PodcastDetailsPageState extends State<PodcastDetailsPage> {
       appBar: AppBar(
         title: Text(
           podcast.title,
-          style: GoogleFonts.chakraPetch(
+          style: GoogleFonts.spaceGrotesk(
             fontWeight: FontWeight.w500,
             fontSize: 17,
           ),
@@ -74,13 +74,13 @@ class _PodcastDetailsPageState extends State<PodcastDetailsPage> {
                 showVideoProgressIndicator: true,
                 progressIndicatorColor: const Color.fromARGB(
                   255,
-                  146,
-                  227,
-                  169,
+                  170,
+                  198,
+                  238,
                 ),
                 progressColors: const ProgressBarColors(
-                  playedColor: Color.fromARGB(255, 146, 227, 169),
-                  handleColor: Color.fromARGB(255, 146, 227, 169),
+                  playedColor: Color.fromARGB(255, 170, 198, 238),
+                  handleColor: Color.fromARGB(255, 170, 198, 238),
                 ),
                 onReady: () {
                   setState(() {
@@ -99,7 +99,7 @@ class _PodcastDetailsPageState extends State<PodcastDetailsPage> {
                 children: [
                   Text(
                     podcast.title,
-                    style: GoogleFonts.chakraPetch(
+                    style: GoogleFonts.spaceGrotesk(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
                     ),
@@ -107,7 +107,7 @@ class _PodcastDetailsPageState extends State<PodcastDetailsPage> {
                   const SizedBox(height: 8),
                   Text(
                     "Hosted by ${podcast.host}",
-                    style: GoogleFonts.chakraPetch(
+                    style: GoogleFonts.spaceGrotesk(
                       fontSize: 16,
                       color: Colors.grey[700],
                       fontWeight: FontWeight.w500,
@@ -120,12 +120,12 @@ class _PodcastDetailsPageState extends State<PodcastDetailsPage> {
                     children: [
                       const Icon(
                         Icons.star,
-                        color: Color.fromARGB(255, 146, 227, 169),
+                        color: Color.fromARGB(255, 170, 198, 238),
                       ),
                       const SizedBox(width: 4),
                       Text(
                         podcast.rating,
-                        style: GoogleFonts.chakraPetch(
+                        style: GoogleFonts.spaceGrotesk(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                         ),
@@ -133,22 +133,22 @@ class _PodcastDetailsPageState extends State<PodcastDetailsPage> {
                       const SizedBox(width: 20),
                       const Icon(
                         Icons.headphones,
-                        color: Color.fromARGB(255, 146, 227, 169),
+                        color: Color.fromARGB(255, 170, 198, 238),
                       ),
                       const SizedBox(width: 4),
                       Text(
                         podcast.listenCount,
-                        style: GoogleFonts.chakraPetch(fontSize: 16),
+                        style: GoogleFonts.spaceGrotesk(fontSize: 16),
                       ),
                       const SizedBox(width: 20),
                       const Icon(
                         Icons.access_time,
-                        color: Color.fromARGB(255, 146, 227, 169),
+                        color: Color.fromARGB(255, 170, 198, 238),
                       ),
                       const SizedBox(width: 4),
                       Text(
                         podcast.duration,
-                        style: GoogleFonts.chakraPetch(fontSize: 16),
+                        style: GoogleFonts.spaceGrotesk(fontSize: 16),
                       ),
                     ],
                   ),
@@ -157,7 +157,7 @@ class _PodcastDetailsPageState extends State<PodcastDetailsPage> {
                   const SizedBox(height: 16),
                   Text(
                     "Topics",
-                    style: GoogleFonts.chakraPetch(
+                    style: GoogleFonts.spaceGrotesk(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
@@ -171,11 +171,16 @@ class _PodcastDetailsPageState extends State<PodcastDetailsPage> {
                           return Chip(
                             label: Text(
                               topic,
-                              style: GoogleFonts.chakraPetch(
+                              style: GoogleFonts.spaceGrotesk(
                                 color: Colors.black,
                               ),
                             ),
-                            backgroundColor: Color.fromARGB(255, 146, 227, 169),
+                            backgroundColor: const Color.fromARGB(
+                              255,
+                              170,
+                              198,
+                              238,
+                            ),
                             padding: const EdgeInsets.all(0),
                           );
                         }).toList(),
@@ -184,7 +189,7 @@ class _PodcastDetailsPageState extends State<PodcastDetailsPage> {
                   const SizedBox(height: 16),
                   Text(
                     "Description",
-                    style: GoogleFonts.chakraPetch(
+                    style: GoogleFonts.spaceGrotesk(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
@@ -192,13 +197,13 @@ class _PodcastDetailsPageState extends State<PodcastDetailsPage> {
                   const SizedBox(height: 8),
                   Text(
                     podcast.description,
-                    style: GoogleFonts.chakraPetch(fontSize: 16, height: 1.5),
+                    style: GoogleFonts.spaceGrotesk(fontSize: 16, height: 1.5),
                   ),
 
                   const SizedBox(height: 24),
                   Text(
                     "Episodes",
-                    style: GoogleFonts.chakraPetch(
+                    style: GoogleFonts.spaceGrotesk(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
@@ -213,10 +218,15 @@ class _PodcastDetailsPageState extends State<PodcastDetailsPage> {
                       return ListTile(
                         contentPadding: EdgeInsets.zero,
                         leading: CircleAvatar(
-                          backgroundColor: Color.fromARGB(255, 146, 227, 169),
+                          backgroundColor: const Color.fromARGB(
+                            255,
+                            170,
+                            198,
+                            238,
+                          ),
                           child: Text(
                             "${index + 1}",
-                            style: GoogleFonts.chakraPetch(
+                            style: GoogleFonts.spaceGrotesk(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
                             ),
@@ -224,13 +234,13 @@ class _PodcastDetailsPageState extends State<PodcastDetailsPage> {
                         ),
                         title: Text(
                           episode,
-                          style: GoogleFonts.chakraPetch(
+                          style: GoogleFonts.spaceGrotesk(
                             fontWeight: FontWeight.w500,
                           ),
                         ),
                         trailing: const Icon(
                           Icons.play_circle_outline,
-                          color: Color.fromARGB(255, 146, 227, 169),
+                          color: Color.fromARGB(255, 52, 76, 183),
                         ),
                         onTap: () {
                           if (_isPlayerReady) {

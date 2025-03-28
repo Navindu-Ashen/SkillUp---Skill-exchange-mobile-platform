@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:skill_up/data/podcasts.dart';
-import 'package:skill_up/widgets/podcast_card.dart';
+import 'package:skill_up/widgets/learn_card.dart';
 
-class PodcastPage extends StatefulWidget {
-  const PodcastPage({super.key});
+class LearningPage extends StatefulWidget {
+  const LearningPage({super.key});
 
   @override
-  State<PodcastPage> createState() => _PodcastPageState();
+  State<LearningPage> createState() => _LearningPageState();
 }
 
-class _PodcastPageState extends State<PodcastPage> {
+class _LearningPageState extends State<LearningPage> {
   @override
   Widget build(BuildContext context) {
     final podcasts = PodcastData.getPodcasts();
@@ -20,8 +20,8 @@ class _PodcastPageState extends State<PodcastPage> {
         backgroundColor: Colors.white,
         appBar: AppBar(
           title: Text(
-            "Tech Podcasts",
-            style: GoogleFonts.chakraPetch(fontWeight: FontWeight.bold),
+            "Lerning Sessions",
+            style: GoogleFonts.spaceGrotesk(fontWeight: FontWeight.bold),
           ),
           centerTitle: true,
           elevation: 0,
@@ -34,8 +34,8 @@ class _PodcastPageState extends State<PodcastPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Featured Podcasts",
-                style: GoogleFonts.chakraPetch(
+                "Featured Sessions",
+                style: GoogleFonts.spaceGrotesk(
                   fontSize: 20,
                   fontWeight: FontWeight.w500,
                 ),
@@ -46,7 +46,7 @@ class _PodcastPageState extends State<PodcastPage> {
                   itemCount: podcasts.length,
                   itemBuilder: (context, index) {
                     final podcast = podcasts[index];
-                    return PodcastCard(podcast: podcast);
+                    return LearnCard(podcast: podcast);
                   },
                 ),
               ),

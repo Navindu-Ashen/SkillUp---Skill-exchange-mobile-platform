@@ -4,11 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:skill_up/auth/login_page.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:skill_up/base.dart';
 import 'package:skill_up/const.dart';
 import 'package:skill_up/firebase_options.dart';
+import 'package:skill_up/providers/navigation_provider.dart';
 import 'package:skill_up/providers/post_provider.dart';
 import 'package:skill_up/providers/user_provider.dart';
-import 'package:skill_up/screens/home/home_page.dart';
 
 void main() async {
   await _setup();
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (ctx) => UserProvider()),
         ChangeNotifierProvider(create: (ctx) => PostProvider()),
+        ChangeNotifierProvider(create: (context) => NavigationProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -41,7 +43,7 @@ class MyApp extends StatelessWidget {
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (ctx, snapshot) {
             if (snapshot.hasData) {
-              return const HomePage();
+              return const Base();
             }
             return const LoginPage();
           },

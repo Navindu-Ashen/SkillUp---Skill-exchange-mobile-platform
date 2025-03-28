@@ -1,12 +1,8 @@
-import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:skill_up/providers/user_provider.dart';
-import 'package:skill_up/screens/add_post/add_post_page.dart';
-import 'package:skill_up/screens/podcasts/podcast_page.dart';
-import 'package:skill_up/screens/profile/profile_page.dart';
-import 'package:skill_up/screens/job_search/job_search_page.dart';
+import 'package:skill_up/widgets/home/featured_skills.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -16,28 +12,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _bottomNavIndex = 0;
   final TextEditingController _searchController = TextEditingController();
   final FocusNode _searchFocusNode = FocusNode();
-
-  final List<IconData> iconList = [
-    Icons.home,
-    Icons.search,
-    Icons.podcasts,
-    Icons.person,
-  ];
-
-  late List<Widget> _pages;
 
   @override
   void initState() {
     super.initState();
-    _pages = [
-      _buildHomeContent(),
-      const SearchPage(),
-      const PodcastPage(),
-      const ProfilePage(),
-    ];
   }
 
   @override
@@ -59,8 +39,16 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  Widget _buildHomeContent() {
+  @override
+  Widget build(BuildContext context) {
+    final userProvider = context.watch<UserProvider>();
+
+    if (userProvider.user == null) {
+      return _buildLoadingScreen();
+    }
+
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Row(
@@ -122,85 +110,100 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
         backgroundColor: Colors.white,
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(60),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: Container(
+              height: 48,
+              decoration: BoxDecoration(
+                color: const Color.fromARGB(255, 240, 240, 240),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: TextField(
+                controller: _searchController,
+                focusNode: _searchFocusNode,
+                decoration: InputDecoration(
+                  hintText: 'Search for skills...',
+                  hintStyle: GoogleFonts.spaceGrotesk(color: Colors.grey[600]),
+                  prefixIcon: Icon(Icons.search, color: Colors.grey[600]),
+                  border: InputBorder.none,
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 14,
+                  ),
+                ),
+                onSubmitted: (value) {
+                  // Handle search
+                  if (value.isNotEmpty) {
+                    // Navigate to search page with query
+                  }
+                },
+              ),
+            ),
+          ),
+        ),
       ),
-      body: Column(),
+      body: SingleChildScrollView(
+        physics: const AlwaysScrollableScrollPhysics(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              child: Text(
+                'Featured Skills',
+                style: GoogleFonts.spaceGrotesk(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            const FeaturedSkillsSection(),
+
+            const SizedBox(height: 24),
+          ],
+        ),
+      ),
     );
   }
 
-  void _handleNavigation(int index) {
-    setState(() {
-      _bottomNavIndex = index;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final userProvider = context.watch<UserProvider>();
+  Widget _buildLoadingScreen() {
     final screenSize = MediaQuery.of(context).size;
-    return userProvider.user == null
-        ? Scaffold(
-          body: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Skill Up",
-                      style: GoogleFonts.spaceGrotesk(
-                        fontSize: 35,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    Icon(
-                      Icons.keyboard_double_arrow_up_sharp,
-                      color: const Color.fromARGB(255, 52, 76, 183),
-                      size: 40,
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  width: screenSize.width * 0.5,
-                  height: 4,
-                  child: LinearProgressIndicator(
-                    borderRadius: BorderRadius.circular(100),
-                    color: const Color.fromARGB(255, 16, 79, 134),
+                Text(
+                  "Skill Up",
+                  style: GoogleFonts.spaceGrotesk(
+                    fontSize: 35,
+                    color: Colors.black,
+                    fontWeight: FontWeight.w500,
                   ),
+                ),
+                Icon(
+                  Icons.keyboard_double_arrow_up_sharp,
+                  color: const Color.fromARGB(255, 52, 76, 183),
+                  size: 40,
                 ),
               ],
             ),
-          ),
-        )
-        : Scaffold(
-          body: _pages[_bottomNavIndex],
-          floatingActionButton: FloatingActionButton(
-            backgroundColor: Colors.black54,
-            shape: const CircleBorder(),
-            onPressed: () {
-              Navigator.of(
-                context,
-              ).push(MaterialPageRoute(builder: (ctx) => const AddPostPage()));
-            },
-            elevation: 0,
-            child: const Icon(Icons.add, color: Colors.white, size: 30),
-          ),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerDocked,
-          bottomNavigationBar: AnimatedBottomNavigationBar(
-            icons: iconList,
-            activeIndex: _bottomNavIndex,
-            gapLocation: GapLocation.center,
-            notchSmoothness: NotchSmoothness.softEdge,
-            onTap: _handleNavigation,
-            activeColor: Colors.white,
-            inactiveColor: Colors.grey[400],
-            backgroundColor: const Color.fromARGB(255, 52, 76, 183),
-            iconSize: 30,
-            splashRadius: 0,
-            splashColor: Colors.transparent,
-          ),
-        );
+            SizedBox(
+              width: screenSize.width * 0.5,
+              height: 4,
+              child: LinearProgressIndicator(
+                borderRadius: BorderRadius.circular(100),
+                color: const Color.fromARGB(255, 16, 79, 134),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

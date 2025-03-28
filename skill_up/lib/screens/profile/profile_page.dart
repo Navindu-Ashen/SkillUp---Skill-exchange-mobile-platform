@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-//import 'package:skill_up/data/featured_post.dart';
 import 'package:skill_up/providers/user_provider.dart';
 import 'package:skill_up/screens/add_post/add_post_page.dart';
 import 'package:skill_up/widgets/edit_profile_dialog.dart';
-//import 'package:skill_up/widgets/featured_post_card.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
