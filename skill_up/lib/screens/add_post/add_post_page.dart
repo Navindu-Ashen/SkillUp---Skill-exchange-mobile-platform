@@ -7,9 +7,10 @@ import 'package:skill_up/providers/post_provider.dart';
 import 'package:skill_up/providers/user_provider.dart';
 
 class AddPostPage extends StatefulWidget {
-  const AddPostPage({Key? key}) : super(key: key);
+  const AddPostPage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _AddPostPageState createState() => _AddPostPageState();
 }
 

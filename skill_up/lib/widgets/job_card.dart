@@ -87,7 +87,7 @@ class JobCard extends StatelessWidget {
                       children: [
                         Text(
                           title,
-                          style: GoogleFonts.chakraPetch(
+                          style: GoogleFonts.spaceGrotesk(
                             fontWeight: FontWeight.bold,
                             fontSize: 18,
                             color: Colors.black,
@@ -96,7 +96,7 @@ class JobCard extends StatelessWidget {
                         const SizedBox(height: 4),
                         Text(
                           company,
-                          style: GoogleFonts.chakraPetch(
+                          style: GoogleFonts.spaceGrotesk(
                             fontSize: 16,
                             color: Colors.grey[700],
                           ),
@@ -113,7 +113,7 @@ class JobCard extends StatelessWidget {
                             Expanded(
                               child: Text(
                                 location,
-                                style: GoogleFonts.chakraPetch(
+                                style: GoogleFonts.spaceGrotesk(
                                   fontSize: 14,
                                   color: Colors.grey[600],
                                 ),
@@ -133,7 +133,7 @@ class JobCard extends StatelessWidget {
                       isSaved ? Icons.bookmark : Icons.bookmark_border,
                       color:
                           isSaved
-                              ? const Color.fromARGB(255, 146, 227, 169)
+                              ? const Color.fromARGB(255, 52, 76, 183)
                               : Colors.grey[600],
                     ),
                     onPressed: () {
@@ -166,9 +166,9 @@ class JobCard extends StatelessWidget {
                         decoration: BoxDecoration(
                           color: const Color.fromARGB(
                             255,
-                            146,
-                            227,
-                            169,
+                            52,
+                            76,
+                            183,
                           ).withOpacity(0.2),
                           borderRadius: BorderRadius.circular(4),
                         ),
@@ -178,15 +178,15 @@ class JobCard extends StatelessWidget {
                             Icon(
                               Icons.money,
                               size: 14,
-                              color: Colors.green[700],
+                              color: const Color.fromARGB(255, 52, 76, 183),
                             ),
                             const SizedBox(width: 2),
                             Text(
                               salary,
-                              style: GoogleFonts.chakraPetch(
+                              style: GoogleFonts.spaceGrotesk(
                                 fontSize: 14,
                                 fontWeight: FontWeight.bold,
-                                color: Colors.green[700],
+                                color: const Color.fromARGB(255, 52, 76, 183),
                               ),
                             ),
                           ],
@@ -232,7 +232,7 @@ class JobCard extends StatelessWidget {
                   // Description
                   Text(
                     description,
-                    style: GoogleFonts.chakraPetch(
+                    style: GoogleFonts.spaceGrotesk(
                       fontSize: 14,
                       color: Colors.black87,
                       height: 1.4,
@@ -255,7 +255,7 @@ class JobCard extends StatelessWidget {
                           );
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color.fromARGB(255, 7, 59, 58),
+                          backgroundColor: Colors.black,
                           foregroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20),
@@ -267,7 +267,7 @@ class JobCard extends StatelessWidget {
                         ),
                         child: Text(
                           'View Details',
-                          style: GoogleFonts.chakraPetch(
+                          style: GoogleFonts.spaceGrotesk(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
                             fontSize: 15,

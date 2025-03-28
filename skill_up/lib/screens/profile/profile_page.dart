@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:skill_up/data/featured_post.dart';
+//import 'package:skill_up/data/featured_post.dart';
 import 'package:skill_up/providers/user_provider.dart';
 import 'package:skill_up/screens/add_post/add_post_page.dart';
 import 'package:skill_up/widgets/edit_profile_dialog.dart';
-import 'package:skill_up/widgets/featured_post_card.dart';
+//import 'package:skill_up/widgets/featured_post_card.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -49,7 +49,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     final userProvider = context.watch<UserProvider>();
     var screenSize = MediaQuery.of(context).size;
-    final featuredPosts = FeaturedPostsData.getFeaturedPosts();
+    //final featuredPosts = FeaturedPostsData.getFeaturedPosts();
 
     return SafeArea(
       child: Scaffold(
@@ -294,16 +294,16 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                     const SizedBox(height: 12),
-                    SizedBox(
-                      height: 235,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: featuredPosts.length,
-                        itemBuilder: (context, index) {
-                          return FeaturedPostCard(post: featuredPosts[index]);
-                        },
-                      ),
-                    ),
+                    // SizedBox(
+                    //   height: 235,
+                    //   child: ListView.builder(
+                    //     scrollDirection: Axis.horizontal,
+                    //     itemCount: featuredPosts.length,
+                    //     itemBuilder: (context, index) {
+                    //       return FeaturedPostCard(post: featuredPosts[index]);
+                    //     },
+                    //   ),
+                    // ),
                     const SizedBox(height: 32),
                     SizedBox(
                       width: double.infinity,

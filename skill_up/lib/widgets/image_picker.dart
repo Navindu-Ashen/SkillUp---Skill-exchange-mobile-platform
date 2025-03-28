@@ -45,13 +45,13 @@ class _UserImagePickerState extends State<UserImagePicker> {
           child: SizedBox(
             child: CircleAvatar(
               radius: 84,
-              backgroundColor: Color.fromARGB(255, 11, 110, 79),
+              backgroundColor: const Color.fromARGB(255, 52, 76, 183),
               child: CircleAvatar(
                 radius: 78.0,
-                backgroundColor: Color.fromARGB(255, 242, 255, 251),
+                backgroundColor: Color.fromARGB(255, 242, 248, 255),
                 backgroundImage:
                     context.watch<UserProvider>().profileImage == null
-                        ? const AssetImage('assets/icon_bg.png')
+                        ? const AssetImage('')
                         : Image.file(
                           context.watch<UserProvider>().profileImage!,
                         ).image,
@@ -71,7 +71,7 @@ class _UserImagePickerState extends State<UserImagePicker> {
                               color: Colors.white,
                               style: ButtonStyle(
                                 backgroundColor: WidgetStateProperty.all<Color>(
-                                  Color.fromARGB(255, 11, 110, 79),
+                                  const Color.fromARGB(255, 52, 76, 183),
                                 ),
                               ),
                             )
@@ -85,7 +85,7 @@ class _UserImagePickerState extends State<UserImagePicker> {
                               color: Colors.white,
                               style: ButtonStyle(
                                 backgroundColor: WidgetStateProperty.all<Color>(
-                                  Color.fromARGB(255, 11, 110, 79),
+                                  const Color.fromARGB(255, 52, 76, 183),
                                 ),
                               ),
                             ),

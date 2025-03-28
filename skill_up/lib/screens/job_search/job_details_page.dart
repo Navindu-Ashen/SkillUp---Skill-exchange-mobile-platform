@@ -68,7 +68,7 @@ class _JobDetailsPageState extends State<JobDetailsPage> {
               _isSaved ? Icons.bookmark : Icons.bookmark_border,
               color:
                   _isSaved
-                      ? const Color.fromARGB(255, 146, 227, 169)
+                      ? const Color.fromARGB(255, 52, 76, 183)
                       : Colors.grey[600],
             ),
             onPressed: _toggleSave,
@@ -82,7 +82,7 @@ class _JobDetailsPageState extends State<JobDetailsPage> {
         ],
         title: Text(
           'Job Details',
-          style: GoogleFonts.chakraPetch(
+          style: GoogleFonts.spaceGrotesk(
             color: Colors.black,
             fontWeight: FontWeight.bold,
           ),
@@ -141,7 +141,7 @@ class _JobDetailsPageState extends State<JobDetailsPage> {
                       children: [
                         Text(
                           widget.job.title,
-                          style: GoogleFonts.chakraPetch(
+                          style: GoogleFonts.spaceGrotesk(
                             fontSize: 22,
                             fontWeight: FontWeight.bold,
                             color: Colors.black,
@@ -150,7 +150,7 @@ class _JobDetailsPageState extends State<JobDetailsPage> {
                         const SizedBox(height: 4),
                         Text(
                           widget.job.company,
-                          style: GoogleFonts.chakraPetch(
+                          style: GoogleFonts.spaceGrotesk(
                             fontSize: 18,
                             color: Colors.grey[700],
                           ),
@@ -167,7 +167,7 @@ class _JobDetailsPageState extends State<JobDetailsPage> {
                             Expanded(
                               child: Text(
                                 widget.job.location,
-                                style: GoogleFonts.chakraPetch(
+                                style: GoogleFonts.spaceGrotesk(
                                   fontSize: 14,
                                   color: Colors.grey[600],
                                 ),
@@ -193,7 +193,7 @@ class _JobDetailsPageState extends State<JobDetailsPage> {
                   // Overview section
                   Text(
                     'Overview',
-                    style: GoogleFonts.chakraPetch(
+                    style: GoogleFonts.spaceGrotesk(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
@@ -208,7 +208,7 @@ class _JobDetailsPageState extends State<JobDetailsPage> {
                         icon: Icons.money,
                         title: 'Salary',
                         value: widget.job.salary,
-                        color: Colors.green,
+                        color: const Color.fromARGB(255, 52, 76, 183),
                       ),
                       const SizedBox(width: 12),
                       _buildInfoCard(
@@ -218,7 +218,7 @@ class _JobDetailsPageState extends State<JobDetailsPage> {
                             widget.job.tags?.contains('Full-time') == true
                                 ? 'Full-time'
                                 : 'Contract',
-                        color: Colors.green,
+                        color: const Color.fromARGB(255, 52, 76, 183),
                       ),
                     ],
                   ),
@@ -229,7 +229,7 @@ class _JobDetailsPageState extends State<JobDetailsPage> {
                         icon: Icons.schedule,
                         title: 'Experience',
                         value: '2-5 years',
-                        color: Colors.green,
+                        color: const Color.fromARGB(255, 52, 76, 183),
                       ),
                       const SizedBox(width: 12),
                       _buildInfoCard(
@@ -238,7 +238,7 @@ class _JobDetailsPageState extends State<JobDetailsPage> {
                         value: _formatDate(
                           DateTime.now().subtract(const Duration(days: 3)),
                         ),
-                        color: Colors.green,
+                        color: const Color.fromARGB(255, 52, 76, 183),
                       ),
                     ],
                   ),
@@ -250,7 +250,7 @@ class _JobDetailsPageState extends State<JobDetailsPage> {
                       widget.job.tags!.isNotEmpty) ...[
                     Text(
                       'Skills',
-                      style: GoogleFonts.chakraPetch(
+                      style: GoogleFonts.spaceGrotesk(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
@@ -271,31 +271,26 @@ class _JobDetailsPageState extends State<JobDetailsPage> {
                                   decoration: BoxDecoration(
                                     color: const Color.fromARGB(
                                       255,
-                                      146,
-                                      227,
-                                      169,
+                                      52,
+                                      76,
+                                      183,
                                     ).withOpacity(0.2),
                                     borderRadius: BorderRadius.circular(20),
                                     border: Border.all(
                                       color: const Color.fromARGB(
                                         255,
-                                        146,
-                                        227,
-                                        169,
+                                        52,
+                                        76,
+                                        183,
                                       ),
                                       width: 1,
                                     ),
                                   ),
                                   child: Text(
                                     tag,
-                                    style: GoogleFonts.chakraPetch(
+                                    style: GoogleFonts.spaceGrotesk(
                                       fontSize: 14,
-                                      color: const Color.fromARGB(
-                                        255,
-                                        7,
-                                        59,
-                                        58,
-                                      ),
+                                      color: Colors.black,
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
@@ -309,7 +304,7 @@ class _JobDetailsPageState extends State<JobDetailsPage> {
                   // Description section
                   Text(
                     'Job Description',
-                    style: GoogleFonts.chakraPetch(
+                    style: GoogleFonts.spaceGrotesk(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
@@ -318,7 +313,7 @@ class _JobDetailsPageState extends State<JobDetailsPage> {
                   const SizedBox(height: 12),
                   Text(
                     widget.job.description,
-                    style: GoogleFonts.chakraPetch(
+                    style: GoogleFonts.spaceGrotesk(
                       fontSize: 16,
                       color: Colors.black87,
                       height: 1.5,
@@ -330,7 +325,7 @@ class _JobDetailsPageState extends State<JobDetailsPage> {
                   // Responsibilities section
                   Text(
                     'Responsibilities',
-                    style: GoogleFonts.chakraPetch(
+                    style: GoogleFonts.spaceGrotesk(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
@@ -358,7 +353,7 @@ class _JobDetailsPageState extends State<JobDetailsPage> {
                   // Requirements section
                   Text(
                     'Requirements',
-                    style: GoogleFonts.chakraPetch(
+                    style: GoogleFonts.spaceGrotesk(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
@@ -386,7 +381,7 @@ class _JobDetailsPageState extends State<JobDetailsPage> {
                   // Benefits section
                   Text(
                     'Benefits',
-                    style: GoogleFonts.chakraPetch(
+                    style: GoogleFonts.spaceGrotesk(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
@@ -410,7 +405,7 @@ class _JobDetailsPageState extends State<JobDetailsPage> {
                   // Company section
                   Text(
                     'About ${widget.job.company}',
-                    style: GoogleFonts.chakraPetch(
+                    style: GoogleFonts.spaceGrotesk(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
@@ -419,7 +414,7 @@ class _JobDetailsPageState extends State<JobDetailsPage> {
                   const SizedBox(height: 12),
                   Text(
                     'We are a leading technology company focused on creating innovative solutions that transform industries. With a team of passionate experts, we develop cutting-edge software that solves real-world problems.',
-                    style: GoogleFonts.chakraPetch(
+                    style: GoogleFonts.spaceGrotesk(
                       fontSize: 16,
                       color: Colors.black87,
                       height: 1.5,
@@ -452,7 +447,7 @@ class _JobDetailsPageState extends State<JobDetailsPage> {
               child: ElevatedButton(
                 onPressed: _isApplied ? null : _applyForJob,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(255, 7, 59, 58),
+                  backgroundColor: const Color.fromARGB(255, 52, 76, 183),
                   foregroundColor: Colors.white,
                   disabledBackgroundColor: Colors.grey,
                   padding: const EdgeInsets.symmetric(vertical: 12),
@@ -462,7 +457,7 @@ class _JobDetailsPageState extends State<JobDetailsPage> {
                 ),
                 child: Text(
                   _isApplied ? 'Applied' : 'Apply Now',
-                  style: GoogleFonts.chakraPetch(fontWeight: FontWeight.bold),
+                  style: GoogleFonts.spaceGrotesk(fontWeight: FontWeight.bold),
                 ),
               ),
             ),
@@ -494,7 +489,7 @@ class _JobDetailsPageState extends State<JobDetailsPage> {
                 const SizedBox(width: 8),
                 Text(
                   title,
-                  style: GoogleFonts.chakraPetch(
+                  style: GoogleFonts.spaceGrotesk(
                     fontSize: 14,
                     color: Colors.grey[700],
                   ),
@@ -504,7 +499,7 @@ class _JobDetailsPageState extends State<JobDetailsPage> {
             const SizedBox(height: 8),
             Text(
               value,
-              style: GoogleFonts.chakraPetch(
+              style: GoogleFonts.spaceGrotesk(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
                 color: Colors.black,
@@ -524,9 +519,9 @@ class _JobDetailsPageState extends State<JobDetailsPage> {
         children: [
           Text(
             '•',
-            style: GoogleFonts.chakraPetch(
+            style: GoogleFonts.spaceGrotesk(
               fontSize: 18,
-              color: const Color.fromARGB(255, 146, 227, 169),
+              color: const Color.fromARGB(255, 52, 76, 183),
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -534,7 +529,7 @@ class _JobDetailsPageState extends State<JobDetailsPage> {
           Expanded(
             child: Text(
               text,
-              style: GoogleFonts.chakraPetch(
+              style: GoogleFonts.spaceGrotesk(
                 fontSize: 16,
                 color: Colors.black87,
                 height: 1.4,

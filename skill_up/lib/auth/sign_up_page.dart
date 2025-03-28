@@ -43,7 +43,7 @@ class _SignUpPageState extends State<SignUpPage> {
               textAlign: TextAlign.center,
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            backgroundColor: Color.fromARGB(255, 11, 110, 79),
+            backgroundColor: const Color.fromARGB(255, 52, 76, 183),
           ),
         );
         return;
@@ -99,17 +99,17 @@ class _SignUpPageState extends State<SignUpPage> {
                 children: [
                   Text(
                     "Create Account",
-                    style: GoogleFonts.chakraPetch(
+                    style: GoogleFonts.spaceGrotesk(
                       fontSize: 32,
-                      color: const Color.fromARGB(255, 7, 59, 58),
+                      color: const Color.fromARGB(255, 52, 76, 183),
                       fontWeight: FontWeight.w500,
                     ),
                   ),
                   Text(
-                    "Sign up to join the tech community",
-                    style: GoogleFonts.chakraPetch(
+                    "Sign up to join the skill community",
+                    style: GoogleFonts.spaceGrotesk(
                       fontSize: 16,
-                      color: const Color.fromARGB(255, 7, 59, 58),
+                      color: const Color.fromARGB(255, 52, 76, 183),
                       fontWeight: FontWeight.w400,
                     ),
                   ),
@@ -127,34 +127,31 @@ class _SignUpPageState extends State<SignUpPage> {
                     TextFormField(
                       controller: _nameController,
                       keyboardType: TextInputType.name,
-                      style: GoogleFonts.chakraPetch(color: Colors.black),
+                      style: GoogleFonts.spaceGrotesk(color: Colors.black),
                       decoration: InputDecoration(
-                        hoverColor: const Color.fromARGB(255, 7, 59, 58),
+                        hoverColor: const Color.fromARGB(255, 52, 76, 183),
                         labelText: 'Full Name',
-                        labelStyle: GoogleFonts.chakraPetch(
-                          color: const Color.fromARGB(155, 12, 49, 22),
+                        labelStyle: GoogleFonts.spaceGrotesk(
+                          color: Colors.black,
                           fontSize: 16,
                           fontWeight: FontWeight.normal,
                         ),
                         prefixIcon: const Icon(Icons.person_2),
-                        prefixIconColor: const Color.fromARGB(255, 7, 59, 58),
+                        prefixIconColor: const Color.fromARGB(255, 52, 76, 183),
                         border: const OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color.fromARGB(155, 7, 59, 58),
-                            width: 1,
-                          ),
+                          borderSide: BorderSide(color: Colors.black, width: 1),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
                           borderSide: const BorderSide(
-                            color: Color.fromARGB(155, 7, 59, 58),
+                            color: const Color.fromARGB(255, 52, 76, 183),
                             width: 2,
                           ),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
                           borderSide: const BorderSide(
-                            color: Color.fromARGB(255, 7, 59, 58),
+                            color: const Color.fromARGB(255, 52, 76, 183),
                             width: 2,
                           ),
                         ),
@@ -172,34 +169,31 @@ class _SignUpPageState extends State<SignUpPage> {
                     TextFormField(
                       controller: _ageController,
                       keyboardType: TextInputType.number,
-                      style: GoogleFonts.chakraPetch(color: Colors.black),
+                      style: GoogleFonts.spaceGrotesk(color: Colors.black),
                       decoration: InputDecoration(
-                        hoverColor: const Color.fromARGB(255, 7, 59, 58),
+                        hoverColor: const Color.fromARGB(255, 52, 76, 183),
                         labelText: 'Age',
-                        labelStyle: GoogleFonts.chakraPetch(
-                          color: const Color.fromARGB(155, 12, 49, 22),
+                        labelStyle: GoogleFonts.spaceGrotesk(
+                          color: Colors.black,
                           fontSize: 16,
                           fontWeight: FontWeight.normal,
                         ),
                         prefixIcon: const Icon(Icons.calendar_today),
-                        prefixIconColor: const Color.fromARGB(255, 7, 59, 58),
+                        prefixIconColor: const Color.fromARGB(255, 52, 76, 183),
                         border: const OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color.fromARGB(155, 7, 59, 58),
-                            width: 1,
-                          ),
+                          borderSide: BorderSide(color: Colors.black, width: 1),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
                           borderSide: const BorderSide(
-                            color: Color.fromARGB(155, 7, 59, 58),
+                            color: const Color.fromARGB(255, 52, 76, 183),
                             width: 2,
                           ),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
                           borderSide: const BorderSide(
-                            color: Color.fromARGB(255, 7, 59, 58),
+                            color: const Color.fromARGB(255, 52, 76, 183),
                             width: 2,
                           ),
                         ),
@@ -221,34 +215,31 @@ class _SignUpPageState extends State<SignUpPage> {
                     TextFormField(
                       controller: _contactNumberController,
                       keyboardType: TextInputType.phone,
-                      style: GoogleFonts.chakraPetch(color: Colors.black),
+                      style: GoogleFonts.spaceGrotesk(color: Colors.black),
                       decoration: InputDecoration(
-                        hoverColor: const Color.fromRGBO(7, 59, 58, 1),
+                        hoverColor: const Color.fromARGB(255, 52, 76, 183),
                         labelText: 'Contact Number',
-                        labelStyle: GoogleFonts.chakraPetch(
-                          color: const Color.fromARGB(155, 12, 49, 22),
+                        labelStyle: GoogleFonts.spaceGrotesk(
+                          color: Colors.black,
                           fontSize: 16,
                           fontWeight: FontWeight.normal,
                         ),
                         prefixIcon: const Icon(Icons.phone),
-                        prefixIconColor: const Color.fromARGB(255, 7, 59, 58),
+                        prefixIconColor: const Color.fromARGB(255, 52, 76, 183),
                         border: const OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color.fromARGB(155, 7, 59, 58),
-                            width: 1,
-                          ),
+                          borderSide: BorderSide(color: Colors.black, width: 1),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
                           borderSide: const BorderSide(
-                            color: Color.fromARGB(155, 7, 59, 58),
+                            color: const Color.fromARGB(255, 52, 76, 183),
                             width: 2,
                           ),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
                           borderSide: const BorderSide(
-                            color: Color.fromARGB(255, 7, 59, 58),
+                            color: const Color.fromARGB(255, 52, 76, 183),
                             width: 2,
                           ),
                         ),
@@ -266,34 +257,31 @@ class _SignUpPageState extends State<SignUpPage> {
                     TextFormField(
                       controller: _emailController,
                       keyboardType: TextInputType.emailAddress,
-                      style: GoogleFonts.chakraPetch(color: Colors.black),
+                      style: GoogleFonts.spaceGrotesk(color: Colors.black),
                       decoration: InputDecoration(
-                        hoverColor: const Color.fromARGB(255, 7, 59, 58),
+                        hoverColor: const Color.fromARGB(255, 52, 76, 183),
                         labelText: 'Email',
-                        labelStyle: GoogleFonts.chakraPetch(
-                          color: const Color.fromARGB(155, 12, 49, 22),
+                        labelStyle: GoogleFonts.spaceGrotesk(
+                          color: Colors.black,
                           fontSize: 16,
                           fontWeight: FontWeight.normal,
                         ),
                         prefixIcon: const Icon(Icons.email),
-                        prefixIconColor: const Color.fromARGB(255, 7, 59, 58),
+                        prefixIconColor: const Color.fromARGB(255, 52, 76, 183),
                         border: const OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color.fromARGB(155, 7, 59, 58),
-                            width: 1,
-                          ),
+                          borderSide: BorderSide(color: Colors.black, width: 1),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
                           borderSide: const BorderSide(
-                            color: Color.fromARGB(155, 7, 59, 58),
+                            color: const Color.fromARGB(255, 52, 76, 183),
                             width: 2,
                           ),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
                           borderSide: const BorderSide(
-                            color: Color.fromARGB(255, 7, 59, 58),
+                            color: const Color.fromARGB(255, 52, 76, 183),
                             width: 2,
                           ),
                         ),
@@ -313,9 +301,9 @@ class _SignUpPageState extends State<SignUpPage> {
                     TextFormField(
                       controller: _passwordController,
                       obscureText: !_isPasswordVisible,
-                      style: GoogleFonts.chakraPetch(color: Colors.black),
+                      style: GoogleFonts.spaceGrotesk(color: Colors.black),
                       decoration: InputDecoration(
-                        hoverColor: const Color.fromARGB(255, 7, 59, 58),
+                        hoverColor: const Color.fromARGB(255, 52, 76, 183),
                         labelText: 'Password',
                         suffixIcon: IconButton(
                           icon: Icon(
@@ -329,30 +317,28 @@ class _SignUpPageState extends State<SignUpPage> {
                             });
                           },
                         ),
-                        labelStyle: GoogleFonts.chakraPetch(
-                          color: const Color.fromARGB(155, 12, 49, 22),
+                        suffixIconColor: const Color.fromARGB(255, 52, 76, 183),
+                        labelStyle: GoogleFonts.spaceGrotesk(
+                          color: Colors.black,
                           fontSize: 16,
                           fontWeight: FontWeight.normal,
                         ),
-                        prefixIcon: const Icon(Icons.email),
-                        prefixIconColor: const Color.fromARGB(255, 7, 59, 58),
+                        prefixIcon: const Icon(Icons.lock),
+                        prefixIconColor: const Color.fromARGB(255, 52, 76, 183),
                         border: const OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color.fromARGB(155, 7, 59, 58),
-                            width: 1,
-                          ),
+                          borderSide: BorderSide(color: Colors.black, width: 1),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
                           borderSide: const BorderSide(
-                            color: Color.fromARGB(155, 7, 59, 58),
+                            color: const Color.fromARGB(255, 52, 76, 183),
                             width: 2,
                           ),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
                           borderSide: const BorderSide(
-                            color: Color.fromARGB(255, 7, 59, 58),
+                            color: const Color.fromARGB(255, 52, 76, 183),
                             width: 2,
                           ),
                         ),
@@ -380,7 +366,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     backgroundColor:
                         context.watch<UserProvider>().isLoading
                             ? Colors.grey
-                            : Color.fromARGB(255, 11, 110, 79),
+                            : const Color.fromARGB(255, 52, 76, 183),
                     foregroundColor: Colors.white,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
@@ -399,7 +385,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           )
                           : Text(
                             "SIGN UP",
-                            style: GoogleFonts.chakraPetch(
+                            style: GoogleFonts.spaceGrotesk(
                               fontSize: 18,
                               color: Colors.white,
                               fontWeight: FontWeight.w600,
@@ -412,7 +398,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 children: [
                   Text(
                     'Already have an account?',
-                    style: GoogleFonts.chakraPetch(
+                    style: GoogleFonts.spaceGrotesk(
                       fontSize: 16,
                       color: Colors.black,
                       fontWeight: FontWeight.w500,
@@ -428,9 +414,9 @@ class _SignUpPageState extends State<SignUpPage> {
                     },
                     child: Text(
                       'Login',
-                      style: GoogleFonts.chakraPetch(
+                      style: GoogleFonts.spaceGrotesk(
                         fontSize: 18,
-                        color: Color.fromARGB(255, 11, 110, 79),
+                        color: const Color.fromARGB(255, 52, 76, 183),
                         fontWeight: FontWeight.w500,
                       ),
                     ),

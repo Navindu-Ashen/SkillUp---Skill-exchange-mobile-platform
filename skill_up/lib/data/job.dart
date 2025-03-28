@@ -121,7 +121,10 @@ class JobData {
   }
 
   // Helper method to filter jobs by tags
-  static List<Job> filterJobsByTags(List<String> filterTags) {
+  static List<Job> filterJobsByTags(
+    List<String> filterTags,
+    List<Job> results,
+  ) {
     if (filterTags.isEmpty) {
       return jobs;
     }

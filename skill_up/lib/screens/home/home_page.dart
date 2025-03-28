@@ -2,14 +2,11 @@ import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.da
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:skill_up/providers/post_provider.dart';
 import 'package:skill_up/providers/user_provider.dart';
 import 'package:skill_up/screens/add_post/add_post_page.dart';
-import 'package:skill_up/screens/market_place/market_place_page_list.dart';
 import 'package:skill_up/screens/podcasts/podcast_page.dart';
 import 'package:skill_up/screens/profile/profile_page.dart';
 import 'package:skill_up/screens/job_search/job_search_page.dart';
-import 'package:skill_up/widgets/home/social_post_card.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -20,6 +17,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _bottomNavIndex = 0;
+  final TextEditingController _searchController = TextEditingController();
+  final FocusNode _searchFocusNode = FocusNode();
 
   final List<IconData> iconList = [
     Icons.home,
@@ -39,6 +38,13 @@ class _HomePageState extends State<HomePage> {
       const PodcastPage(),
       const ProfilePage(),
     ];
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    _searchFocusNode.dispose();
+    super.dispose();
   }
 
   @override
@@ -64,46 +70,51 @@ class _HomePageState extends State<HomePage> {
             Consumer<UserProvider>(
               builder: (context, userProvider, child) {
                 final user = userProvider.user;
-                return ClipOval(
-                  child: SizedBox(
-                    height: 48,
-                    width: 48,
-                    child:
-                        user != null
-                            ? FadeInImage.assetNetwork(
-                              placeholder: 'assets/icon_bg_F.jpg',
-                              image: user.profilePictureURL,
+                return user != null
+                    ? ClipOval(
+                      child: SizedBox(
+                        height: 48,
+                        width: 48,
+                        child: FadeInImage.assetNetwork(
+                          placeholder: 'assets/Sample_User_Icon.png',
+                          image: user.profilePictureURL,
+                          fit: BoxFit.cover,
+                          imageErrorBuilder: (context, error, stackTrace) {
+                            return Image.asset(
+                              'assets/Sample_User_Icon.png',
                               fit: BoxFit.cover,
-                              imageErrorBuilder: (context, error, stackTrace) {
-                                return const Icon(Icons.error);
-                              },
-                              placeholderFit: BoxFit.cover,
-                              fadeInDuration: const Duration(milliseconds: 500),
-                              fadeInCurve: Curves.easeIn,
-                            )
-                            : Image.asset(
-                              'assets/icon_bg_F.jpg',
-                              fit: BoxFit.cover,
-                            ),
-                  ),
-                );
+                            );
+                          },
+                          placeholderFit: BoxFit.cover,
+                          fadeInDuration: const Duration(milliseconds: 500),
+                          fadeInCurve: Curves.easeIn,
+                        ),
+                      ),
+                    )
+                    : ClipOval(
+                      child: SizedBox(
+                        height: 48,
+                        width: 48,
+                        child: Image.asset(
+                          'assets/Sample_User_Icon.png',
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    );
               },
             ),
             Text(
-              "Tech Link",
-              style: GoogleFonts.chakraPetch(
-                color: Colors.black,
-                fontWeight: FontWeight.w500,
+              'Skill Up',
+              style: GoogleFonts.spaceGrotesk(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: const Color.fromARGB(255, 52, 76, 183),
               ),
             ),
             IconButton(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(builder: (ctx) => const MarketplacePage()),
-                );
-              },
+              onPressed: () {},
               icon: const Icon(
-                Icons.shopping_bag_outlined,
+                Icons.messenger_outline_rounded,
                 size: 30,
                 color: Colors.black,
               ),
@@ -112,40 +123,7 @@ class _HomePageState extends State<HomePage> {
         ),
         backgroundColor: Colors.white,
       ),
-      body: Consumer<PostProvider>(
-        builder: (context, postProvider, child) {
-          return SingleChildScrollView(
-            child: Column(
-              children: [
-                ListView.builder(
-                  reverse: true,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: postProvider.posts.length,
-                  itemBuilder: (context, index) {
-                    final post = postProvider.posts[index];
-                    return SocialPostCard(
-                      profileImageUrl: post.profileImageUrl,
-                      userName: post.userName,
-                      userTitle: post.userTitle,
-                      postTime: post.postTime,
-                      postText: post.postText,
-                      likeCount: 48,
-                      commentCount: 21,
-                      postImages: post.postImages,
-                      onLikeTap: () {},
-                      onCommentTap: () {},
-                      onSaveTap: () {},
-                      onProfileTap: () {},
-                    );
-                  },
-                ),
-                SizedBox(height: 32),
-              ],
-            ),
-          );
-        },
-      ),
+      body: Column(),
     );
   }
 
@@ -163,19 +141,32 @@ class _HomePageState extends State<HomePage> {
         ? Scaffold(
           body: Center(
             child: Column(
-              spacing: 8,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Image.asset(
-                  "assets/logo_full_T.png",
-                  width: screenSize.width * 0.7,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Skill Up",
+                      style: GoogleFonts.spaceGrotesk(
+                        fontSize: 35,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    Icon(
+                      Icons.keyboard_double_arrow_up_sharp,
+                      color: const Color.fromARGB(255, 52, 76, 183),
+                      size: 40,
+                    ),
+                  ],
                 ),
                 SizedBox(
-                  width: screenSize.width * 0.65,
+                  width: screenSize.width * 0.5,
                   height: 4,
                   child: LinearProgressIndicator(
                     borderRadius: BorderRadius.circular(100),
-                    color: Color.fromARGB(255, 7, 59, 58),
+                    color: const Color.fromARGB(255, 16, 79, 134),
                   ),
                 ),
               ],
@@ -185,7 +176,7 @@ class _HomePageState extends State<HomePage> {
         : Scaffold(
           body: _pages[_bottomNavIndex],
           floatingActionButton: FloatingActionButton(
-            backgroundColor: const Color.fromARGB(255, 146, 227, 169),
+            backgroundColor: Colors.black54,
             shape: const CircleBorder(),
             onPressed: () {
               Navigator.of(
@@ -193,11 +184,7 @@ class _HomePageState extends State<HomePage> {
               ).push(MaterialPageRoute(builder: (ctx) => const AddPostPage()));
             },
             elevation: 0,
-            child: const Icon(
-              Icons.add,
-              color: Color.fromARGB(255, 7, 59, 58),
-              size: 30,
-            ),
+            child: const Icon(Icons.add, color: Colors.white, size: 30),
           ),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
@@ -207,9 +194,9 @@ class _HomePageState extends State<HomePage> {
             gapLocation: GapLocation.center,
             notchSmoothness: NotchSmoothness.softEdge,
             onTap: _handleNavigation,
-            activeColor: const Color.fromARGB(255, 146, 227, 169),
-            inactiveColor: Colors.white,
-            backgroundColor: const Color.fromARGB(255, 7, 59, 58),
+            activeColor: Colors.white,
+            inactiveColor: Colors.grey[400],
+            backgroundColor: const Color.fromARGB(255, 52, 76, 183),
             iconSize: 30,
             splashRadius: 0,
             splashColor: Colors.transparent,

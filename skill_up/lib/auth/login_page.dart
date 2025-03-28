@@ -55,25 +55,43 @@ class _LoginPageState extends State<LoginPage> {
             padding: const EdgeInsets.symmetric(horizontal: 25),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Image.asset("assets/logo_T.png", width: screenSize.width * 0.8),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                const SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Login to your account",
-                      style: GoogleFonts.chakraPetch(
+                      "Skill Up",
+                      style: GoogleFonts.spaceGrotesk(
+                        fontSize: 55,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    Icon(
+                      Icons.keyboard_double_arrow_up_sharp,
+                      color: const Color.fromARGB(255, 52, 76, 183),
+                      size: 60,
+                    ),
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Welcome Back!",
+                      style: GoogleFonts.spaceGrotesk(
                         fontSize: 32,
-                        color: const Color.fromARGB(255, 7, 59, 58),
+                        color: const Color.fromARGB(255, 52, 76, 183),
                         fontWeight: FontWeight.w500,
                       ),
                     ),
                     Text(
                       "Enter your credentials to access account",
-                      style: GoogleFonts.chakraPetch(
+                      style: GoogleFonts.spaceGrotesk(
                         fontSize: 16,
-                        color: const Color.fromARGB(255, 7, 59, 58),
+                        color: const Color.fromARGB(255, 52, 76, 183),
                         fontWeight: FontWeight.w400,
                       ),
                     ),
@@ -96,20 +114,25 @@ class _LoginPageState extends State<LoginPage> {
                               }
                               return null;
                             },
-                            style: GoogleFonts.chakraPetch(
-                              color: Color.fromARGB(255, 7, 59, 58),
+                            style: GoogleFonts.spaceGrotesk(
+                              color: const Color.fromARGB(255, 52, 76, 183),
                             ),
                             decoration: InputDecoration(
                               contentPadding: const EdgeInsets.all(16),
 
-                              labelText: "Enter Email address",
-                              labelStyle: GoogleFonts.chakraPetch(
-                                color: const Color.fromARGB(155, 12, 49, 22),
+                              labelText: "Email address",
+                              labelStyle: GoogleFonts.spaceGrotesk(
+                                color: Colors.black,
                                 fontSize: 16,
                                 fontWeight: FontWeight.normal,
                               ),
                               prefixIcon: const Icon(Icons.email),
-                              prefixIconColor: Color.fromARGB(255, 7, 59, 58),
+                              prefixIconColor: const Color.fromARGB(
+                                255,
+                                52,
+                                76,
+                                183,
+                              ),
                               fillColor: Colors.white,
                               filled: true,
                               border: OutlineInputBorder(
@@ -122,14 +145,14 @@ class _LoginPageState extends State<LoginPage> {
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8),
                                 borderSide: const BorderSide(
-                                  color: Color.fromARGB(255, 7, 59, 58),
+                                  color: Color.fromARGB(255, 52, 76, 183),
                                   width: 1.5,
                                 ),
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8),
                                 borderSide: const BorderSide(
-                                  color: Color.fromARGB(255, 7, 59, 58),
+                                  color: Color.fromARGB(255, 52, 76, 183),
                                   width: 2.0,
                                 ),
                               ),
@@ -147,16 +170,16 @@ class _LoginPageState extends State<LoginPage> {
                               return null;
                             },
                             obscureText: !_isPasswordVisible,
-                            style: GoogleFonts.chakraPetch(
-                              color: Color.fromARGB(255, 7, 59, 58),
+                            style: GoogleFonts.spaceGrotesk(
+                              color: const Color.fromARGB(255, 52, 76, 183),
                             ),
 
                             decoration: InputDecoration(
                               contentPadding: const EdgeInsets.all(16),
 
-                              labelText: "Enter Password",
-                              labelStyle: GoogleFonts.chakraPetch(
-                                color: const Color.fromARGB(155, 12, 49, 22),
+                              labelText: "Password",
+                              labelStyle: GoogleFonts.spaceGrotesk(
+                                color: Colors.black,
                                 fontSize: 16,
                                 fontWeight: FontWeight.normal,
                               ),
@@ -166,14 +189,26 @@ class _LoginPageState extends State<LoginPage> {
                                       ? Icons.visibility
                                       : Icons.visibility_off,
                                 ),
+
                                 onPressed: () {
                                   setState(() {
                                     _isPasswordVisible = !_isPasswordVisible;
                                   });
                                 },
                               ),
-                              prefixIcon: const Icon(Icons.password),
-                              prefixIconColor: Color.fromARGB(255, 7, 59, 58),
+                              suffixIconColor: const Color.fromARGB(
+                                255,
+                                52,
+                                76,
+                                183,
+                              ),
+                              prefixIcon: const Icon(Icons.lock),
+                              prefixIconColor: const Color.fromARGB(
+                                255,
+                                52,
+                                76,
+                                183,
+                              ),
                               fillColor: Colors.white,
                               filled: true,
                               border: OutlineInputBorder(
@@ -185,14 +220,14 @@ class _LoginPageState extends State<LoginPage> {
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8),
                                 borderSide: const BorderSide(
-                                  color: Color.fromARGB(255, 7, 59, 58),
+                                  color: Color.fromARGB(255, 52, 76, 183),
                                   width: 1.5,
                                 ),
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8),
                                 borderSide: const BorderSide(
-                                  color: Color.fromARGB(255, 7, 59, 58),
+                                  color: Color.fromARGB(255, 52, 76, 183),
                                   width: 2.0,
                                 ),
                               ),
@@ -207,84 +242,86 @@ class _LoginPageState extends State<LoginPage> {
                       child: Text(
                         "Forget Password?",
                         textAlign: TextAlign.right,
-                        style: GoogleFonts.chakraPetch(
+                        style: GoogleFonts.spaceGrotesk(
                           fontSize: 14,
-                          color: const Color.fromARGB(255, 7, 59, 58),
+                          color: Colors.black,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
                     ),
-                  ],
-                ),
-                Column(
-                  spacing: 8,
-                  children: [
-                    SizedBox(
-                      height: 60,
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: _handleLogin,
-                        style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.all(8),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          backgroundColor:
-                              context.watch<UserProvider>().isLoading
-                                  ? Colors.grey
-                                  : Color.fromARGB(255, 11, 110, 79),
-                        ),
-                        child: Center(
-                          child:
-                              context.watch<UserProvider>().isLoading
-                                  ? SizedBox(
-                                    width: 20,
-                                    height: 20,
-                                    child: CircularProgressIndicator(
-                                      color: Colors.white,
-                                      strokeWidth: 2,
-                                    ),
-                                  )
-                                  : Text(
-                                    "LOGIN",
-                                    style: GoogleFonts.chakraPetch(
-                                      fontSize: 18,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                        ),
-                      ),
-                    ),
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    SizedBox(height: 64),
+                    Column(
+                      spacing: 8,
                       children: [
-                        Text(
-                          "Don't have an account?",
-                          style: GoogleFonts.chakraPetch(
-                            fontSize: 16,
-                            color: Colors.black,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (ctx) => const SignUpPage(),
+                        SizedBox(
+                          height: 60,
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            onPressed: _handleLogin,
+                            style: ElevatedButton.styleFrom(
+                              padding: const EdgeInsets.all(8),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
                               ),
-                            );
-                          },
-                          child: Text(
-                            "Sign Up",
-                            style: GoogleFonts.chakraPetch(
-                              fontSize: 18,
-                              color: const Color.fromARGB(255, 7, 59, 58),
-                              fontWeight: FontWeight.w500,
+                              backgroundColor:
+                                  context.watch<UserProvider>().isLoading
+                                      ? Colors.grey
+                                      : const Color.fromARGB(255, 52, 76, 183),
+                            ),
+                            child: Center(
+                              child:
+                                  context.watch<UserProvider>().isLoading
+                                      ? SizedBox(
+                                        width: 20,
+                                        height: 20,
+                                        child: CircularProgressIndicator(
+                                          color: Colors.white,
+                                          strokeWidth: 2,
+                                        ),
+                                      )
+                                      : Text(
+                                        "LOGIN",
+                                        style: GoogleFonts.spaceGrotesk(
+                                          fontSize: 18,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
                             ),
                           ),
                         ),
+
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Don't have an account?",
+                              style: GoogleFonts.spaceGrotesk(
+                                fontSize: 16,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (ctx) => const SignUpPage(),
+                                  ),
+                                );
+                              },
+                              child: Text(
+                                "Sign Up",
+                                style: GoogleFonts.spaceGrotesk(
+                                  fontSize: 18,
+                                  color: const Color.fromARGB(255, 52, 76, 183),
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 32),
                       ],
                     ),
                   ],

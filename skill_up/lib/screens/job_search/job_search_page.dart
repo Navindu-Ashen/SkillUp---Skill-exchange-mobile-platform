@@ -37,7 +37,7 @@ class _SearchPageState extends State<SearchPage> {
 
       // Then filter by tags if any are active
       if (_activeFilters.isNotEmpty) {
-        results = JobData.filterJobsByTags(_activeFilters);
+        results = JobData.filterJobsByTags(_activeFilters, results);
       }
 
       // Finally sort the results
@@ -87,7 +87,7 @@ class _SearchPageState extends State<SearchPage> {
                         controller: _searchController,
                         decoration: InputDecoration(
                           hintText: 'Search for jobs...',
-                          hintStyle: GoogleFonts.chakraPetch(
+                          hintStyle: GoogleFonts.spaceGrotesk(
                             color: Colors.black,
                           ),
                           prefixIcon: Icon(
@@ -182,7 +182,7 @@ class _SearchPageState extends State<SearchPage> {
                 children: [
                   Text(
                     '${_filteredJobs.length} jobs found',
-                    style: GoogleFonts.chakraPetch(
+                    style: GoogleFonts.spaceGrotesk(
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
                     ),
@@ -208,8 +208,8 @@ class _SearchPageState extends State<SearchPage> {
                           const SizedBox(width: 4),
                           Text(
                             'Clear all',
-                            style: GoogleFonts.chakraPetch(
-                              color: const Color.fromARGB(255, 7, 59, 58),
+                            style: GoogleFonts.spaceGrotesk(
+                              color: Colors.black,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
@@ -261,7 +261,7 @@ class _SearchPageState extends State<SearchPage> {
         decoration: BoxDecoration(
           color:
               isActive
-                  ? const Color.fromARGB(255, 146, 227, 169)
+                  ? const Color.fromARGB(255, 52, 76, 183)
                   : const Color.fromARGB(255, 240, 240, 240),
           borderRadius: BorderRadius.circular(16),
         ),
@@ -270,15 +270,15 @@ class _SearchPageState extends State<SearchPage> {
           children: [
             Text(
               label,
-              style: GoogleFonts.chakraPetch(
+              style: GoogleFonts.spaceGrotesk(
                 fontSize: 12,
                 fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
-                color: isActive ? Colors.black : Colors.black87,
+                color: isActive ? Colors.white : Colors.black87,
               ),
             ),
             if (isActive) ...[
               const SizedBox(width: 4),
-              const Icon(Icons.close, size: 16, color: Colors.black54),
+              const Icon(Icons.close, size: 16, color: Colors.white),
             ],
           ],
         ),
@@ -295,7 +295,7 @@ class _SearchPageState extends State<SearchPage> {
           const SizedBox(height: 16),
           Text(
             'No results found',
-            style: GoogleFonts.chakraPetch(
+            style: GoogleFonts.spaceGrotesk(
               fontSize: 18,
               fontWeight: FontWeight.bold,
               color: Colors.grey[700],
@@ -304,7 +304,7 @@ class _SearchPageState extends State<SearchPage> {
           const SizedBox(height: 8),
           Text(
             'Try different keywords or filters',
-            style: GoogleFonts.chakraPetch(
+            style: GoogleFonts.spaceGrotesk(
               fontSize: 14,
               color: Colors.grey[600],
             ),
