@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:skill_up/model/podcast.dart';
+import 'package:skill_up/model/learning.dart';
 import 'package:skill_up/screens/learning/learning_detailed_page.dart';
 
 class LearnCard extends StatelessWidget {

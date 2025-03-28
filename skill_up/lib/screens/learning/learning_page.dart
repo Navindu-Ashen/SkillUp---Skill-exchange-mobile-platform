@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:skill_up/data/podcasts.dart';
+import 'package:skill_up/data/learning.dart';
 import 'package:skill_up/widgets/learn_card.dart';
 
 class LearningPage extends StatefulWidget {

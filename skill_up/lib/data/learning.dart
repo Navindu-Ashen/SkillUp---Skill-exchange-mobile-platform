@@ -1,4 +1,4 @@
-import 'package:skill_up/model/podcast.dart';
+import 'package:skill_up/model/learning.dart';
 
 class PodcastData {
   static List<PodcastModel> getPodcasts() {
