@@ -194,11 +194,21 @@ class _AddPostPageState extends State<AddPostPage> {
               child: Row(
                 children: [
                   ClipOval(
-                    child: Image.asset(
-                      'assets/profile.jpg',
+                    child: FadeInImage.assetNetwork(
+                      placeholder: 'assets/Sample_User_Icon.png',
+                      image:
+                          context.watch<UserProvider>().user!.profilePictureURL,
                       width: 40,
                       height: 40,
                       fit: BoxFit.cover,
+                      imageErrorBuilder: (context, error, stackTrace) {
+                        return Image.asset(
+                          'assets/Sample_User_Icon.png',
+                          fit: BoxFit.cover,
+                        );
+                      },
+                      fadeInDuration: const Duration(milliseconds: 500),
+                      fadeInCurve: Curves.easeIn,
                     ),
                   ),
                   const SizedBox(width: 12),
@@ -206,7 +216,7 @@ class _AddPostPageState extends State<AddPostPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Kavya Sarameweera',
+                        context.watch<UserProvider>().user!.username,
                         style: GoogleFonts.spaceGrotesk(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,

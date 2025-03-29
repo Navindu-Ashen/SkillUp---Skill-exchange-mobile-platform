@@ -37,7 +37,7 @@ class SkillCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-              height: 140,
+              height: 130,
               child: Stack(
                 children: [
                   ClipRRect(
