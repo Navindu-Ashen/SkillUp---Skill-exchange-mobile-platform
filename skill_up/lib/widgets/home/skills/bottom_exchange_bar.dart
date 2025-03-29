@@ -1,18 +1,21 @@
 // ignore_for_file: deprecated_member_use
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:skill_up/model/skill.dart';
+import 'package:skill_up/screens/home/skills/message_page.dart';
 
 class BottomExchangeBar extends StatelessWidget {
   final bool isOffered;
   final VoidCallback onRequestExchange;
   final VoidCallback onContactNow;
+  final Skill skill;
 
   const BottomExchangeBar({
     super.key,
     required this.isOffered,
     required this.onRequestExchange,
     required this.onContactNow,
+    required this.skill,
   });
 
   @override
@@ -31,11 +34,9 @@ class BottomExchangeBar extends StatelessWidget {
       ),
       child: Row(
         children: [
-          // Request Exchange button
           Expanded(
             child: OutlinedButton(
-              onPressed:
-                  onRequestExchange, // Always enabled for exchange request
+              onPressed: onRequestExchange,
               style: OutlinedButton.styleFrom(
                 side: const BorderSide(color: Color.fromARGB(255, 52, 76, 183)),
                 shape: RoundedRectangleBorder(
@@ -52,13 +53,22 @@ class BottomExchangeBar extends StatelessWidget {
               ),
             ),
           ),
-
           const SizedBox(width: 16),
-
-          // Contact Now button
           Expanded(
             child: ElevatedButton(
-              onPressed: onContactNow,
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder:
+                        (context) => MessagePage(
+                          skill: skill,
+                          recipientName: skill.userId,
+                        ),
+                  ),
+                );
+                onContactNow();
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color.fromARGB(255, 52, 76, 183),
                 shape: RoundedRectangleBorder(
@@ -67,7 +77,7 @@ class BottomExchangeBar extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 12),
               ),
               child: Text(
-                'Contact Now',
+                'Message Now',
                 style: GoogleFonts.spaceGrotesk(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,

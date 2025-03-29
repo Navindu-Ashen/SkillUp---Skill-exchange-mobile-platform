@@ -19,9 +19,21 @@ class AddPostPage extends StatefulWidget {
 
 class _AddPostPageState extends State<AddPostPage> {
   final TextEditingController _captionController = TextEditingController();
+  final TextEditingController _skillTitleController = TextEditingController();
   final List<String> _selectedImages = [];
   final ImagePicker _picker = ImagePicker();
   bool _isLoading = false;
+  String _selectedCategory = 'Programming';
+  bool _isOffering = true;
+
+  final List<String> _categories = [
+    'Programming',
+    'Design',
+    'Photography',
+    'Business',
+    'Education',
+    'Other',
+  ];
 
   Future<void> _pickImage(ImageSource source) async {
     try {
@@ -76,19 +88,24 @@ class _AddPostPageState extends State<AddPostPage> {
       return;
     }
 
+    if (_skillTitleController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please enter a skill title')),
+      );
+      return;
+    }
+
     setState(() {
       _isLoading = true;
     });
 
     try {
       final user = context.read<UserProvider>().user;
-
-      // Create post with the local file paths
       context.read<PostProvider>().addPost(
         Post(
           profileImageUrl: user!.profilePictureURL,
-          userName: user!.username,
-          userTitle: "Software Engineer",
+          userName: user.username,
+          userTitle: "Undergraduate Student",
           postTime: "Now",
           postText: _captionController.text,
           likeCount: 0,
@@ -112,19 +129,19 @@ class _AddPostPageState extends State<AddPostPage> {
   @override
   void dispose() {
     _captionController.dispose();
+    _skillTitleController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final screenSize = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
         title: Text(
-          'New Post',
+          'New Skill Post',
           style: GoogleFonts.spaceGrotesk(
             color: Colors.black,
             fontWeight: FontWeight.bold,
@@ -143,17 +160,22 @@ class _AddPostPageState extends State<AddPostPage> {
                 child: const CircularProgressIndicator(
                   strokeWidth: 2,
                   valueColor: AlwaysStoppedAnimation<Color>(
-                    Color.fromARGB(255, 146, 227, 169),
+                    Color.fromARGB(255, 52, 76, 183),
                   ),
                 ),
               )
               : TextButton(
-                onPressed: _selectedImages.isNotEmpty ? _createPost : null,
+                onPressed:
+                    (_selectedImages.isNotEmpty &&
+                            _skillTitleController.text.isNotEmpty)
+                        ? _createPost
+                        : null,
                 child: Text(
                   'Share',
                   style: GoogleFonts.spaceGrotesk(
                     color:
-                        _selectedImages.isNotEmpty
+                        (_selectedImages.isNotEmpty &&
+                                _skillTitleController.text.isNotEmpty)
                             ? const Color.fromARGB(255, 52, 76, 183)
                             : Colors.grey,
                     fontWeight: FontWeight.bold,
@@ -164,197 +186,392 @@ class _AddPostPageState extends State<AddPostPage> {
         ],
       ),
       body: SingleChildScrollView(
-        child: SizedBox(
-          height: screenSize.height - 82,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Row(
-                      children: [
-                        ClipOval(
-                          child: Image.asset(
-                            'assets/profile.jpg',
-                            width: 40,
-                            height: 40,
-                            fit: BoxFit.cover,
-                          ),
+                  ClipOval(
+                    child: Image.asset(
+                      'assets/profile.jpg',
+                      width: 40,
+                      height: 40,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Kavya Sarameweera',
+                        style: GoogleFonts.spaceGrotesk(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
                         ),
-                        const SizedBox(width: 12),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Kavya Sarameweera',
-                              style: GoogleFonts.spaceGrotesk(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                              ),
+                      ),
+                      Text(
+                        'Software Engineer',
+                        style: GoogleFonts.spaceGrotesk(
+                          color: Colors.grey,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+
+            // Skill info section
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.3),
+                    blurRadius: 8,
+                    spreadRadius: 1,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Skill Information',
+                    style: GoogleFonts.spaceGrotesk(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    'I am:',
+                    style: GoogleFonts.spaceGrotesk(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: InkWell(
+                          onTap: () {
+                            setState(() {
+                              _isOffering = true;
+                            });
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(vertical: 10),
+                            decoration: BoxDecoration(
+                              color:
+                                  _isOffering
+                                      ? Color.fromARGB(255, 52, 76, 183)
+                                      : Colors.grey.shade200,
+                              borderRadius: BorderRadius.circular(8),
                             ),
-                            Text(
-                              'Software Engineer',
+                            alignment: Alignment.center,
+                            child: Text(
+                              'OFFERING a skill',
                               style: GoogleFonts.spaceGrotesk(
-                                color: Colors.grey,
+                                color:
+                                    _isOffering ? Colors.white : Colors.black,
+                                fontWeight: FontWeight.bold,
                                 fontSize: 14,
                               ),
                             ),
-                          ],
+                          ),
                         ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: TextField(
-                      controller: _captionController,
-                      decoration: const InputDecoration(
-                        hintText: 'Write a caption...',
-                        border: InputBorder.none,
                       ),
-                      maxLines: 3,
-                    ),
-                  ),
-                  const Divider(),
-                ],
-              ),
-
-              // Selected images preview
-              if (_selectedImages.isNotEmpty)
-                Expanded(
-                  child: GridView.builder(
-                    padding: const EdgeInsets.all(8.0),
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
-                          crossAxisSpacing: 4.0,
-                          mainAxisSpacing: 4.0,
-                        ),
-                    itemCount: _selectedImages.length,
-                    itemBuilder: (context, index) {
-                      return Stack(
-                        children: [
-                          Container(
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: InkWell(
+                          onTap: () {
+                            setState(() {
+                              _isOffering = false;
+                            });
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(vertical: 10),
                             decoration: BoxDecoration(
+                              color:
+                                  !_isOffering
+                                      ? Colors.black
+                                      : Colors.grey.shade200,
                               borderRadius: BorderRadius.circular(8),
-                              image: DecorationImage(
-                                image: FileImage(File(_selectedImages[index])),
-                                fit: BoxFit.cover,
+                            ),
+                            alignment: Alignment.center,
+                            child: Text(
+                              'SEEKING a skill',
+                              style: GoogleFonts.spaceGrotesk(
+                                color:
+                                    !_isOffering ? Colors.white : Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14,
                               ),
                             ),
-                          ),
-                          Positioned(
-                            top: 5,
-                            right: 5,
-                            child: GestureDetector(
-                              onTap: () => _removeImage(index),
-                              child: Container(
-                                padding: const EdgeInsets.all(4),
-                                decoration: const BoxDecoration(
-                                  color: Colors.black54,
-                                  shape: BoxShape.circle,
-                                ),
-                                child: const Icon(
-                                  Icons.close,
-                                  color: Colors.white,
-                                  size: 16,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      );
-                    },
-                  ),
-                )
-              else
-                Center(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const Icon(
-                        Icons.photo_library_outlined,
-                        size: 80,
-                        color: Colors.grey,
-                      ),
-                      const SizedBox(height: 16),
-                      const Text(
-                        'Select photos to share',
-                        style: TextStyle(fontSize: 18, color: Colors.grey),
-                      ),
-                      const SizedBox(height: 24),
-                      ElevatedButton(
-                        onPressed: _pickMultipleImages,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color.fromARGB(
-                            255,
-                            52,
-                            76,
-                            183,
-                          ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 24,
-                            vertical: 12,
-                          ),
-                        ),
-                        child: Text(
-                          'Select from Gallery',
-                          style: GoogleFonts.spaceGrotesk(
-                            fontSize: 16,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
                     ],
                   ),
-                ),
-
-              // Bottom action bar
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 16,
-                  horizontal: 16,
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.05),
-                      offset: const Offset(0, -1),
-                      blurRadius: 4,
+                  const SizedBox(height: 16),
+                  Text(
+                    'Skill Title:',
+                    style: GoogleFonts.spaceGrotesk(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
                     ),
-                  ],
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    IconButton(
-                      icon: const Icon(Icons.photo_library),
-                      onPressed: _pickMultipleImages,
-                      color: Colors.black,
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.camera_alt),
-                      onPressed: () => _pickImage(ImageSource.camera),
-                      color: Colors.black,
-                    ),
-                    const Spacer(),
-                    if (_selectedImages.isNotEmpty)
-                      Text(
-                        '${_selectedImages.length} selected',
-                        style: const TextStyle(color: Colors.grey),
+                  ),
+                  const SizedBox(height: 8),
+                  TextFormField(
+                    controller: _skillTitleController,
+                    decoration: InputDecoration(
+                      hintText: 'Enter skill title (e.g. "Web Development")',
+                      hintStyle: GoogleFonts.spaceGrotesk(color: Colors.grey),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(color: Colors.grey.shade300),
                       ),
-                  ],
-                ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(
+                          color: const Color.fromARGB(255, 52, 76, 183),
+                        ),
+                      ),
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 14,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    'Category:',
+                    style: GoogleFonts.spaceGrotesk(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey.shade300),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton<String>(
+                        isExpanded: true,
+                        value: _selectedCategory,
+                        items:
+                            _categories.map((category) {
+                              return DropdownMenuItem<String>(
+                                value: category,
+                                child: Text(
+                                  category,
+                                  style: GoogleFonts.spaceGrotesk(),
+                                ),
+                              );
+                            }).toList(),
+                        onChanged: (newValue) {
+                          setState(() {
+                            _selectedCategory = newValue!;
+                          });
+                        },
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Description:',
+                    style: GoogleFonts.spaceGrotesk(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  TextFormField(
+                    controller: _captionController,
+                    decoration: InputDecoration(
+                      hintText:
+                          'Describe your skill or what you\'re looking for...',
+                      hintStyle: GoogleFonts.spaceGrotesk(color: Colors.grey),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(color: Colors.grey.shade300),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(
+                          color: const Color.fromARGB(255, 52, 76, 183),
+                        ),
+                      ),
+                      contentPadding: const EdgeInsets.all(12),
+                    ),
+                    maxLines: 4,
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Images:',
+                    style: GoogleFonts.spaceGrotesk(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+
+                  // Selected images preview
+                  if (_selectedImages.isNotEmpty)
+                    Container(
+                      height: 220,
+                      child: GridView.builder(
+                        padding: const EdgeInsets.all(4.0),
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 3,
+                              crossAxisSpacing: 8.0,
+                              mainAxisSpacing: 8.0,
+                            ),
+                        itemCount: _selectedImages.length,
+                        itemBuilder: (context, index) {
+                          return Stack(
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12),
+                                  image: DecorationImage(
+                                    image: FileImage(
+                                      File(_selectedImages[index]),
+                                    ),
+                                    fit: BoxFit.cover,
+                                  ),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.1),
+                                      blurRadius: 4,
+                                      spreadRadius: 1,
+                                      offset: const Offset(0, 2),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Positioned(
+                                top: 5,
+                                right: 5,
+                                child: GestureDetector(
+                                  onTap: () => _removeImage(index),
+                                  child: Container(
+                                    padding: const EdgeInsets.all(4),
+                                    decoration: BoxDecoration(
+                                      color: Colors.black.withOpacity(0.6),
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: const Icon(
+                                      Icons.close,
+                                      color: Colors.white,
+                                      size: 16,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      ),
+                    )
+                  else
+                    Container(
+                      height: 180,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade100,
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(
+                          color: Colors.grey.shade300,
+                          width: 1,
+                          style: BorderStyle.solid,
+                        ),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.photo_library_outlined,
+                            size: 40,
+                            color: Colors.grey.shade500,
+                          ),
+                          const SizedBox(height: 12),
+                          Text(
+                            'Select photos to share',
+                            style: GoogleFonts.spaceGrotesk(
+                              fontSize: 16,
+                              color: Colors.grey.shade600,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+                          ElevatedButton.icon(
+                            icon: const Icon(
+                              Icons.add_photo_alternate,
+                              color: Colors.white,
+                            ),
+                            onPressed: _pickMultipleImages,
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color.fromARGB(
+                                255,
+                                52,
+                                76,
+                                183,
+                              ),
+                              foregroundColor: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 20,
+                                vertical: 10,
+                              ),
+                            ),
+                            label: Text(
+                              'Add Photos',
+                              style: GoogleFonts.spaceGrotesk(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                ],
+              ),
+            ),
+
+            const SizedBox(height: 40),
+          ],
         ),
       ),
     );

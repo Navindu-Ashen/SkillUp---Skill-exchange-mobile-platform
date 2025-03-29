@@ -70,9 +70,7 @@ class _ProfilePageState extends State<ProfilePage>
 
   void showEditProfileDialog() {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
-    final aboutText =
-        "Lorem ipsum dolor sit amet..."; // Replace with actual user about text
-
+    final aboutText = "Lorem ipsum dolor sit amet...";
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -81,7 +79,6 @@ class _ProfilePageState extends State<ProfilePage>
           user: userProvider.user,
           aboutText: aboutText,
           onUpdate: (username, email, phone, about) {
-            // Update user data
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 content: Text('Profile updated successfully'),

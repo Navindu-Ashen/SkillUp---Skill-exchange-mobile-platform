@@ -20,16 +20,16 @@ class LearnCard extends StatelessWidget {
         );
       },
       child: Card(
-        color: const Color.fromARGB(255, 170, 198, 238),
+        color: const Color.fromARGB(255, 231, 241, 255),
         margin: const EdgeInsets.only(bottom: 16),
-        elevation: 2,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        elevation: 4,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ClipRRect(
               borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(12),
+                top: Radius.circular(10),
               ),
               child: Image.asset(
                 podcast.imagePath,

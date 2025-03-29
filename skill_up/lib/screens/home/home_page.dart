@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:skill_up/data/skill.dart';
 import 'package:skill_up/model/skill.dart';
 import 'package:skill_up/providers/user_provider.dart';
+import 'package:skill_up/screens/add_post/add_post_page.dart';
 import 'package:skill_up/widgets/home/featured_skills.dart';
 import 'package:skill_up/widgets/home/skills/skill_card.dart';
 
@@ -137,9 +138,14 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const AddPostPage()),
+                );
+              },
               icon: const Icon(
-                Icons.messenger_outline_rounded,
+                Icons.add_circle_outline,
                 size: 30,
                 color: Colors.black,
               ),

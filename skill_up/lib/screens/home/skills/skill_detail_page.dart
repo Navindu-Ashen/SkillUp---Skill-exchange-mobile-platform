@@ -155,6 +155,7 @@ class _SkillDetailPageState extends State<SkillDetailPage>
               isOffered: _skill.isOffered,
               onRequestExchange: _requestExchange,
               onContactNow: _contactNow,
+              skill: _skill,
             ),
           ],
         ),

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:skill_up/data/skill.dart';
 import 'package:skill_up/model/skill.dart';
-import 'package:skill_up/screens/home/skill_detail_page.dart';
+import 'package:skill_up/screens/home/skills/skill_detail_page.dart';
 
 class SkillCard extends StatelessWidget {
   final Skill skill;
@@ -22,12 +22,12 @@ class SkillCard extends StatelessWidget {
           ),
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: const Color.fromARGB(255, 231, 241, 255),
           borderRadius: BorderRadius.circular(10),
           boxShadow: [
             BoxShadow(
-              color: const Color.fromARGB(255, 52, 76, 183).withOpacity(0.15),
-              blurRadius: 12,
+              color: Colors.black.withOpacity(0.3),
+              blurRadius: 8,
               spreadRadius: 2,
               offset: const Offset(0, 4),
             ),
@@ -148,7 +148,7 @@ class SkillCard extends StatelessWidget {
                       Expanded(
                         child: Text(
                           skill.isOffered
-                              ? 'Offered by User ${skill.userId}'
+                              ? 'Offered by ${skill.userId}'
                               : 'Seeking Mentor',
                           style: GoogleFonts.spaceGrotesk(
                             color: Colors.grey[700],
