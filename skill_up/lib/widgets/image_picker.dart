@@ -16,6 +16,7 @@ class UserImagePicker extends StatefulWidget {
 class _UserImagePickerState extends State<UserImagePicker> {
   File? _pickedImageFile;
 
+  // ignore: unused_element
   void _pickImage() async {
     final pickedImage = await ImagePicker().pickImage(
       source: ImageSource.gallery,
@@ -30,6 +31,7 @@ class _UserImagePickerState extends State<UserImagePicker> {
     widget.onPickedImage(_pickedImageFile!);
   }
 
+  // ignore: unused_element
   void _clearImage() {
     setState(() {
       _pickedImageFile = null;
