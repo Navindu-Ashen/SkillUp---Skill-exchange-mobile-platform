@@ -40,6 +40,17 @@ class _LearningPageState extends State<LearningPage> {
                   fontWeight: FontWeight.w500,
                 ),
               ),
+              // const SizedBox(height: 16),
+              // ElevatedButton(
+              //   onPressed: () {
+              //     context.read<UserProvider>().logout();
+              //     Navigator.of(context).pushAndRemoveUntil(
+              //       MaterialPageRoute(builder: (context) => const MyApp()),
+              //       (route) => false,
+              //     );
+              //   },
+              //   child: const Text("logout"),
+              // ),
               const SizedBox(height: 16),
               Expanded(
                 child: ListView.builder(

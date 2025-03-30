@@ -70,13 +70,26 @@ class _ProfilePageState extends State<ProfilePage>
 
   void showEditProfileDialog() {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
+
+    // Check if user is null before showing dialog
+    if (userProvider.user == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('User profile not loaded'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+
     final aboutText = "Lorem ipsum dolor sit amet...";
     showDialog(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
         return EditProfileDialog(
-          user: userProvider.user,
+          user:
+              userProvider.user!, // Safe to use ! here because we checked above
           aboutText: aboutText,
           onUpdate: (username, email, phone, about) {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -95,6 +108,11 @@ class _ProfilePageState extends State<ProfilePage>
   Widget build(BuildContext context) {
     final userProvider = context.watch<UserProvider>();
     var screenSize = MediaQuery.of(context).size;
+
+    // Show loading indicator if user is null
+    if (userProvider.user == null) {
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+    }
 
     return SafeArea(
       child: Scaffold(

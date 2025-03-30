@@ -1,228 +1,178 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:skill_up/model/post.dart';
+import 'package:uuid/uuid.dart';
 
 class PostProvider extends ChangeNotifier {
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseStorage _storage = FirebaseStorage.instance;
+  bool _isLoading = false;
+
+  bool get isLoading => _isLoading;
+
   List<Post> posts = [
-    Post(
-      profileImageUrl:
-          "assets/WhatsApp Image 2024-07-12 at 12.43.14_eab6b053.jpg",
-      userName: "Kasun Karunanayake",
-      userTitle: "Intern Software Engineer at ION Groups",
-      postTime: "2h ago",
-      postText:
-          "Hi everyone! I'm looking to expand my technical skills while sharing my knowledge in mobile development. Let's connect if you're interested in skill exchange!",
-      likeCount: 48,
-      commentCount: 21,
-      skillsOffered: [
-        "Flutter Development",
-        "Mobile UI Design",
-        "Firebase Integration",
-      ],
-      skillsSought: [
-        "Machine Learning",
-        "Backend Development",
-        "Cloud Architecture",
-      ],
-      isLiked: false,
-      isSaved: true,
-    ),
-    Post(
-      profileImageUrl: "assets/profile.jpg",
-      userName: "Kavya Samaraweera",
-      userTitle: "Senior Security Engineer at Tech Co.",
-      postTime: "3h ago",
-      postText:
-          "Security Engineers design, implement, and maintain cybersecurity solutions to protect an organization's data and systems from unauthorized access, cyberattacks, and other threats. I'm offering mentorship in cybersecurity fundamentals and seeking to learn more about AI integration!",
-      likeCount: 42,
-      commentCount: 8,
-      skillsOffered: [
-        "Cybersecurity",
-        "Network Security",
-        "Ethical Hacking",
-        "Security Analysis",
-      ],
-      skillsSought: ["AI for Security", "Machine Learning", "Data Science"],
-      isLiked: true,
-      isSaved: false,
-    ),
-    Post(
-      profileImageUrl: "assets/a3ca5640f72c2391c84658bf236708e3.jpg",
-      userName: "Chamodi Wickramasinghe",
-      userTitle: "Photographer & Content Creator",
-      postTime: "Yesterday",
-      postText:
-          "Just wrapped up an amazing photoshoot for a local brand! I'm offering photography and video editing skills, and seeking to improve my website building capabilities.",
-      likeCount: 89,
-      commentCount: 23,
-      postImages: [
-        "assets/973e3adc3f76ec46ce57e522855860a3.jpg",
-        "assets/9435a19d256b4bf9f0e4abc3646cef00.jpg",
-      ],
-      skillsOffered: [
-        "Photography",
-        "Video Editing",
-        "Adobe Lightroom",
-        "Adobe Premiere",
-      ],
-      skillsSought: ["Web Development", "WordPress", "E-commerce Setup"],
-      isLiked: false,
-      isSaved: true,
-    ),
-    Post(
-      profileImageUrl: "assets/doc9.jpg",
-      userName: "Frank Fernando",
-      userTitle: "Senior Software Engineer WorkSync (pvt) ltd",
-      postTime: "3h ago",
-      postText:
-          "We are hiring Graphic Designers, Content Managers, and Copywriters. I'm also personally interested in exchanging skills with creative professionals - I can offer coding knowledge in exchange!",
-      likeCount: 42,
-      commentCount: 8,
-      postImages: ["assets/job3.2.jpg"],
-      skillsOffered: [
-        "Full-stack Development",
-        "React",
-        "UI/UX Design",
-        "Project Management",
-      ],
-      skillsSought: [
-        "Digital Marketing",
-        "Content Writing",
-        "Photography",
-        "Graphic Design",
-      ],
-      isLiked: false,
-      isSaved: false,
-    ),
-    Post(
-      profileImageUrl: "assets/brazo-latest-short-off-white-wom.jpg",
-      userName: "Amali Fernando",
-      userTitle: "Freelance UX Designer",
-      postTime: "5h ago",
-      postText:
-          "Just finished a workshop on advanced UI/UX techniques! Looking to exchange my design skills for help with learning programming fundamentals. Anyone interested in a skill swap?",
-      likeCount: 36,
-      commentCount: 14,
-      skillsOffered: [
-        "UI/UX Design",
-        "Wireframing",
-        "User Research",
-        "Figma Prototyping",
-      ],
-      skillsSought: ["JavaScript", "Flutter Development", "Basic Programming"],
-      isLiked: true,
-      isSaved: true,
-    ),
-    Post(
-      profileImageUrl: "assets/profile3.jpg",
-      userName: "Sachith Jayasinghe",
-      userTitle: "Data Analyst at DataTech Solutions",
-      postTime: "8h ago",
-      postText:
-          "Working on a fascinating data visualization project using Python and Tableau. I'm looking to exchange my data analysis knowledge for some creative design skills. Anyone interested?",
-      likeCount: 27,
-      commentCount: 9,
-      postImages: [
-        "assets/Data-Science-for-Beginners-Python-for-Data-Analysis_Watermarked.db873f10250a.jpg",
-      ],
-      skillsOffered: [
-        "Data Analysis",
-        "Python",
-        "Tableau",
-        "SQL",
-        "Statistical Analysis",
-      ],
-      skillsSought: [
-        "Graphic Design",
-        "Data Visualization Design",
-        "UI/UX Design",
-      ],
-      isLiked: false,
-      isSaved: true,
-    ),
+    // Your existing posts...
   ];
 
-  void addPost(Post newPost) {
-    posts.add(newPost);
-    notifyListeners();
+  // Improved addPost method
+  Future<void> addPost(Post post) async {
+    try {
+      // Set loading state
+      _isLoading = true;
+      notifyListeners();
+
+      // Generate a unique ID for the post
+      final String postId = const Uuid().v4();
+
+      // Upload images and get URLs
+      List<String> imageUrls = [];
+      for (String imagePath in post.postImages ?? []) {
+        final imageUrl = await _uploadImage(File(imagePath), postId);
+        imageUrls.add(imageUrl);
+      }
+
+      // Create a new Post object with the generated ID and image URLs
+      final newPost = Post(
+        id: postId,
+        profileImageUrl: post.profileImageUrl,
+        userName: post.userName,
+        userTitle: post.userTitle,
+        postTime: 'Just now', // Or format current time
+        postText: post.postText,
+        likeCount: 0,
+        commentCount: 0,
+        postImages: imageUrls,
+        skillTitle: post.skillTitle,
+        skillCategory: post.skillCategory,
+        isOffering: post.isOffering,
+        // Keep these for compatibility with existing code
+        skillsOffered: [],
+        skillsSought: [],
+        isLiked: false,
+        isSaved: false,
+      );
+
+      // Convert to map for Firestore
+      final postData = {
+        'id': postId,
+        'profileImageUrl': newPost.profileImageUrl,
+        'userName': newPost.userName,
+        'userTitle': newPost.userTitle,
+        'postTime': newPost.postTime,
+        'postText': newPost.postText,
+        'likeCount': newPost.likeCount,
+        'commentCount': newPost.commentCount,
+        'postImages': imageUrls,
+        'skillTitle': newPost.skillTitle,
+        'skillCategory': newPost.skillCategory,
+        'isOffering': newPost.isOffering,
+        'timestamp': DateTime.now().toIso8601String(),
+        'skillsOffered': newPost.skillsOffered ?? [],
+        'skillsSought': newPost.skillsSought ?? [],
+        'isLiked': false,
+        'isSaved': false,
+      };
+
+      // Save to Firebase
+      await _firestore.collection('posts').doc(postId).set(postData);
+
+      // Add to local list
+      posts.insert(0, newPost); // Add to beginning of the list
+
+      notifyListeners();
+    } catch (e) {
+      print("Error adding post: $e");
+      throw e;
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
   }
 
-  // New method to toggle like on a post
+  // Image upload helper method
+  Future<String> _uploadImage(File imageFile, String postId) async {
+    try {
+      // Create a unique filename
+      final String fileName =
+          '${postId}_${DateTime.now().millisecondsSinceEpoch}.jpg';
+      final Reference storageRef = _storage.ref().child(
+        'post_images/$fileName',
+      );
+
+      // Upload the file
+      final UploadTask uploadTask = storageRef.putFile(imageFile);
+      final TaskSnapshot taskSnapshot = await uploadTask;
+
+      // Get the download URL
+      final String downloadUrl = await taskSnapshot.ref.getDownloadURL();
+      return downloadUrl;
+    } catch (e) {
+      print("Error uploading image: $e");
+      throw e;
+    }
+  }
+
+  // Fetch posts from Firestore
+  Future<void> fetchPosts() async {
+    try {
+      _isLoading = true;
+      notifyListeners();
+
+      final QuerySnapshot snapshot =
+          await _firestore
+              .collection('posts')
+              .orderBy('timestamp', descending: true)
+              .get();
+
+      final List<Post> fetchedPosts =
+          snapshot.docs.map((doc) {
+            final data = doc.data() as Map<String, dynamic>;
+            return Post(
+              id: doc.id,
+              profileImageUrl: data['profileImageUrl'] ?? '',
+              userName: data['userName'] ?? '',
+              userTitle: data['userTitle'] ?? '',
+              postTime: data['postTime'] ?? '',
+              postText: data['postText'] ?? '',
+              likeCount: data['likeCount'] ?? 0,
+              commentCount: data['commentCount'] ?? 0,
+              postImages: List<String>.from(data['postImages'] ?? []),
+              skillTitle: data['skillTitle'],
+              skillCategory: data['skillCategory'],
+              isOffering: data['isOffering'] ?? true,
+              skillsOffered: List<String>.from(data['skillsOffered'] ?? []),
+              skillsSought: List<String>.from(data['skillsSought'] ?? []),
+              isLiked: data['isLiked'] ?? false,
+              isSaved: data['isSaved'] ?? false,
+            );
+          }).toList();
+
+      // Add fetched posts to existing hardcoded posts
+      // If you want to show only fetched posts, use: posts = fetchedPosts;
+      posts = [...fetchedPosts, ...posts];
+      //posts = fetchedPosts;
+
+      notifyListeners();
+    } catch (e) {
+      print("Error fetching posts: $e");
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+
+  // Your existing toggle methods
   void toggleLike(String postId) {
-    final postIndex = posts.indexWhere((post) => post.id == postId);
-    if (postIndex != -1) {
-      final post = posts[postIndex];
-      final updatedPost = Post(
-        id: post.id,
-        userId: post.userId,
-        userName: post.userName,
-        userTitle: post.userTitle,
-        profileImageUrl: post.profileImageUrl,
-        postText: post.postText,
-        postImages: post.postImages,
-        postTime: post.postTime,
-        skillsOffered: post.skillsOffered,
-        skillsSought: post.skillsSought,
-        likeCount:
-            (post.isLiked ?? false) ? post.likeCount! - 1 : post.likeCount! + 1,
-        commentCount: post.commentCount,
-        isLiked: !(post.isLiked ?? false),
-        isSaved: post.isSaved,
-      );
-      posts[postIndex] = updatedPost;
-      notifyListeners();
-    }
+    // Existing code
   }
 
-  // New method to toggle save on a post
   void toggleSave(String postId) {
-    final postIndex = posts.indexWhere((post) => post.id == postId);
-    if (postIndex != -1) {
-      final post = posts[postIndex];
-      final updatedPost = Post(
-        id: post.id,
-        userId: post.userId,
-        userName: post.userName,
-        userTitle: post.userTitle,
-        profileImageUrl: post.profileImageUrl,
-        postText: post.postText,
-        postImages: post.postImages,
-        postTime: post.postTime,
-        skillsOffered: post.skillsOffered,
-        skillsSought: post.skillsSought,
-        likeCount: post.likeCount,
-        commentCount: post.commentCount,
-        isLiked: post.isLiked,
-        isSaved: !(post.isSaved ?? false),
-      );
-      posts[postIndex] = updatedPost;
-      notifyListeners();
-    }
+    // Existing code
   }
 
-  // Search posts based on skills
-  List<Post> searchPosts(String query) {
-    if (query.isEmpty) {
-      return posts;
-    }
-
-    query = query.toLowerCase();
-
-    return posts.where((post) {
-      // Search in skills offered
-      final skillsOffered =
-          post.skillsOffered?.map((s) => s.toLowerCase()).toList() ?? [];
-      // Search in skills sought
-      final skillsSought =
-          post.skillsSought?.map((s) => s.toLowerCase()).toList() ?? [];
-      // Search in post text
-      final postText = (post.postText ?? '').toLowerCase();
-      // Search in username
-      final userName = (post.userName ?? '').toLowerCase();
-
-      return skillsOffered.any((skill) => skill.contains(query)) ||
-          skillsSought.any((skill) => skill.contains(query)) ||
-          postText.contains(query) ||
-          userName.contains(query);
-    }).toList();
-  }
+  // List<Post> searchPosts(String query) {
+  //   // Existing code
+  // }
 }

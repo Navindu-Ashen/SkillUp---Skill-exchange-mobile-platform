@@ -1,5 +1,4 @@
 // ignore_for_file: deprecated_member_use
-
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -100,17 +99,46 @@ class _AddPostPageState extends State<AddPostPage> {
     });
 
     try {
+      // Get user data with null safety check
       final user = context.read<UserProvider>().user;
-      context.read<PostProvider>().addPost(
+
+      if (user == null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+              'User information not available. Please login again.',
+            ),
+          ),
+        );
+        setState(() {
+          _isLoading = false;
+        });
+        return;
+      }
+
+      // Create post with all necessary fields
+      await context.read<PostProvider>().addPost(
         Post(
-          profileImageUrl: user!.profilePictureURL,
+          profileImageUrl: user.profilePictureURL,
           userName: user.username,
-          userTitle: "Undergraduate Student",
+          userTitle: "Software Engineer",
           postTime: "Now",
           postText: _captionController.text,
           likeCount: 0,
           commentCount: 0,
           postImages: _selectedImages,
+          skillTitle: _skillTitleController.text,
+          skillCategory: _selectedCategory,
+          isOffering: _isOffering,
+          skillsOffered: _isOffering ? [_skillTitleController.text] : [],
+          skillsSought: !_isOffering ? [_skillTitleController.text] : [],
+        ),
+      );
+
+      // Show success message
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Your skill post has been shared successfully!'),
         ),
       );
 
@@ -135,6 +163,10 @@ class _AddPostPageState extends State<AddPostPage> {
 
   @override
   Widget build(BuildContext context) {
+    // Get user data with null safety
+    final userProvider = context.watch<UserProvider>();
+    final user = userProvider.user;
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -194,29 +226,38 @@ class _AddPostPageState extends State<AddPostPage> {
               child: Row(
                 children: [
                   ClipOval(
-                    child: FadeInImage.assetNetwork(
-                      placeholder: 'assets/Sample_User_Icon.png',
-                      image:
-                          context.watch<UserProvider>().user!.profilePictureURL,
-                      width: 40,
-                      height: 40,
-                      fit: BoxFit.cover,
-                      imageErrorBuilder: (context, error, stackTrace) {
-                        return Image.asset(
-                          'assets/Sample_User_Icon.png',
-                          fit: BoxFit.cover,
-                        );
-                      },
-                      fadeInDuration: const Duration(milliseconds: 500),
-                      fadeInCurve: Curves.easeIn,
-                    ),
+                    child:
+                        user != null && user.profilePictureURL.isNotEmpty
+                            ? FadeInImage.assetNetwork(
+                              placeholder: 'assets/Sample_User_Icon.png',
+                              image: user.profilePictureURL,
+                              width: 40,
+                              height: 40,
+                              fit: BoxFit.cover,
+                              imageErrorBuilder: (context, error, stackTrace) {
+                                return Image.asset(
+                                  'assets/Sample_User_Icon.png',
+                                  width: 40,
+                                  height: 40,
+                                  fit: BoxFit.cover,
+                                );
+                              },
+                              fadeInDuration: const Duration(milliseconds: 500),
+                              fadeInCurve: Curves.easeIn,
+                            )
+                            : Image.asset(
+                              'assets/Sample_User_Icon.png',
+                              width: 40,
+                              height: 40,
+                              fit: BoxFit.cover,
+                            ),
                   ),
                   const SizedBox(width: 12),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        context.watch<UserProvider>().user!.username,
+                        user?.username ?? 'Guest User',
                         style: GoogleFonts.spaceGrotesk(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
@@ -244,7 +285,7 @@ class _AddPostPageState extends State<AddPostPage> {
                 borderRadius: BorderRadius.circular(16),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.3),
+                    color: Colors.black.withOpacity(0.1),
                     blurRadius: 8,
                     spreadRadius: 1,
                     offset: const Offset(0, 2),
@@ -284,7 +325,7 @@ class _AddPostPageState extends State<AddPostPage> {
                             decoration: BoxDecoration(
                               color:
                                   _isOffering
-                                      ? Color.fromARGB(255, 52, 76, 183)
+                                      ? const Color.fromARGB(255, 52, 76, 183)
                                       : Colors.grey.shade200,
                               borderRadius: BorderRadius.circular(8),
                             ),
@@ -353,8 +394,8 @@ class _AddPostPageState extends State<AddPostPage> {
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide(
-                          color: const Color.fromARGB(255, 52, 76, 183),
+                        borderSide: const BorderSide(
+                          color: Color.fromARGB(255, 52, 76, 183),
                         ),
                       ),
                       contentPadding: const EdgeInsets.symmetric(
@@ -393,9 +434,11 @@ class _AddPostPageState extends State<AddPostPage> {
                               );
                             }).toList(),
                         onChanged: (newValue) {
-                          setState(() {
-                            _selectedCategory = newValue!;
-                          });
+                          if (newValue != null) {
+                            setState(() {
+                              _selectedCategory = newValue;
+                            });
+                          }
                         },
                       ),
                     ),
@@ -428,8 +471,8 @@ class _AddPostPageState extends State<AddPostPage> {
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide(
-                          color: const Color.fromARGB(255, 52, 76, 183),
+                        borderSide: const BorderSide(
+                          color: Color.fromARGB(255, 52, 76, 183),
                         ),
                       ),
                       contentPadding: const EdgeInsets.all(12),
@@ -455,7 +498,7 @@ class _AddPostPageState extends State<AddPostPage> {
 
                   // Selected images preview
                   if (_selectedImages.isNotEmpty)
-                    Container(
+                    SizedBox(
                       height: 220,
                       child: GridView.builder(
                         padding: const EdgeInsets.all(4.0),
@@ -576,6 +619,60 @@ class _AddPostPageState extends State<AddPostPage> {
                         ],
                       ),
                     ),
+                ],
+              ),
+            ),
+
+            // Adding bottom buttons for camera and gallery access
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ElevatedButton.icon(
+                    icon: const Icon(Icons.camera_alt, color: Colors.white),
+                    onPressed: () => _pickImage(ImageSource.camera),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.grey.shade800,
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 10,
+                      ),
+                    ),
+                    label: Text(
+                      'Camera',
+                      style: GoogleFonts.spaceGrotesk(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                  ElevatedButton.icon(
+                    icon: const Icon(Icons.photo_library, color: Colors.white),
+                    onPressed: _pickMultipleImages,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(255, 52, 76, 183),
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 10,
+                      ),
+                    ),
+                    label: Text(
+                      'Gallery',
+                      style: GoogleFonts.spaceGrotesk(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),

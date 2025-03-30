@@ -1,12 +1,12 @@
 class Post {
   final String? id;
   final String? userId;
-  final String? userName;
-  final String? userTitle;
-  final String? profileImageUrl;
-  final String? postText;
+  final String userName;
+  final String userTitle;
+  final String profileImageUrl;
+  final String postText;
   final List<String>? postImages;
-  final String? postTime;
+  final String postTime;
   final List<String>? skillsOffered;
   final List<String>? skillsSought;
   final int? likeCount;
@@ -14,22 +14,32 @@ class Post {
   final bool? isLiked;
   final bool? isSaved;
 
+  // New fields for skill exchange
+  final String? skillTitle;
+  final String? skillCategory;
+  final bool? isOffering;
+
   Post({
     this.id,
     this.userId,
-    this.userName,
-    this.userTitle,
-    this.profileImageUrl,
-    this.postText,
+    required this.userName,
+    required this.userTitle,
+    required this.profileImageUrl,
+    required this.postText,
     this.postImages,
-    this.postTime,
+    required this.postTime,
     this.skillsOffered,
     this.skillsSought,
     this.likeCount,
     this.commentCount,
     this.isLiked,
     this.isSaved,
+    this.skillTitle,
+    this.skillCategory,
+    this.isOffering,
   });
+
+  // You can add toMap and fromMap methods here if needed
 
   // Factory method to create a Post from a Map (JSON)
   factory Post.fromJson(Map<String, dynamic> json) {
@@ -77,6 +87,7 @@ class Post {
       'commentCount': commentCount,
       'isLiked': isLiked,
       'isSaved': isSaved,
+      'skillTitle': skillTitle,
     };
   }
 }
