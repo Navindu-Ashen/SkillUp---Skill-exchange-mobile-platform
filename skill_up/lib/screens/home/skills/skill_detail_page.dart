@@ -147,6 +147,7 @@ class _SkillDetailPageState extends State<SkillDetailPage>
                     feedback: _skill.feedback,
                     rating: _skill.rating,
                     reviewCount: _skill.reviewCount,
+                    skillId: _skill.id,
                   ),
                 ],
               ),

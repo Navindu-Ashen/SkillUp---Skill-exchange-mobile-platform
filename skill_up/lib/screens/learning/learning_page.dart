@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:skill_up/data/learning.dart';
+import 'package:skill_up/main.dart';
+import 'package:skill_up/providers/user_provider.dart';
 import 'package:skill_up/widgets/learn_card.dart';
 
 class LearningPage extends StatefulWidget {
@@ -40,7 +43,7 @@ class _LearningPageState extends State<LearningPage> {
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              // const SizedBox(height: 16),
+              const SizedBox(height: 16),
               // ElevatedButton(
               //   onPressed: () {
               //     context.read<UserProvider>().logout();
